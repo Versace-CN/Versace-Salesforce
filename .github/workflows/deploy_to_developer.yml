@@ -1,0 +1,548 @@
+name: Salesforce Multi-Branch Deployment Pipeline
+
+# 触发器配置：推送到特定分支时触发
+on:
+  pull_request:
+    branches:
+      - developer
+      - test
+
+# 环境变量配置
+env:
+  # Salesforce认证信息（通过GitHub Secrets配置）
+  SALESFORCE_USERNAME: ${{ secrets.SALESFORCE_USERNAME }}
+  SALESFORCE_CLIENT_ID: ${{ secrets.SALESFORCE_CLIENT_ID }}
+  SALESFORCE_SERVER_KEY: ${{ secrets.SALESFORCE_SERVER_KEY }}
+  SALESFORCE_LOGIN_URL: ${{ secrets.SALESFORCE_LOGIN_URL }}
+ 
+  # 部署配置文件路径
+  MANIFEST_DIR: 'manifest'  # manifest目录路径
+  PACKAGE_FILE: 'manifest/package.xml'  # package.xml文件路径
+ 
+  # 分支与环境映射配置
+  BRANCH_ENV_MAPPING: |
+    {
+      "master": "production",
+      "test": "test",
+      "developer": "development"
+    }
+
+# 工作流任务定义
+jobs:
+ 
+  # 第一阶段：部署配置检查与准备
+  pre-deployment-check:
+    name: Pre-deployment Check and Configuration
+    runs-on: ubuntu-latest
+ 
+    # 任务输出变量，供后续任务使用
+    outputs:
+      has-package-xml: ${{ steps.check-package.outputs.has-package-xml }}
+      package-path: ${{ steps.check-package.outputs.package-path }}
+      target-environment: ${{ steps.determine-environment.outputs.target-environment }}
+      should-run-tests: ${{ steps.determine-environment.outputs.should-run-tests }}
+      run-all-tests: ${{ steps.determine-environment.outputs.run-all-tests }}
+ 
+    # 执行步骤
+    steps:
+ 
+    # 步骤1：检出代码到工作流运行器
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # 获取完整git历史，便于后续分析
+        ref: ${{ github.ref }}  # 检出触发工作流的特定分支
+ 
+    # 步骤2：检查package.xml文件是否存在且有效
+    - name: Check Package.xml Existence and Validity
+      id: check-package
+      run: |
+        echo "🔍 开始检查package.xml部署清单文件..."
+        echo "检查路径: ${{ env.PACKAGE_FILE }}"
+ 
+        # 检查manifest目录是否存在
+        if [ ! -d "${{ env.MANIFEST_DIR }}" ]; then
+          echo "❌ 错误: manifest目录不存在!"
+          echo "请确保manifest目录存在于项目根目录"
+          exit 1
+        fi
+ 
+        # 检查package.xml文件是否存在
+        if [ -f "${{ env.PACKAGE_FILE }}" ]; then
+          echo "✅ package.xml文件存在"
+ 
+          # 检查文件是否为空
+          if [ ! -s "${{ env.PACKAGE_FILE }}" ]; then
+            echo "❌ 错误: package.xml文件为空!"
+            echo "请确保package.xml中包含要部署的组件"
+            exit 1
+          fi
+ 
+          # 检查文件格式是否正确（是否包含Package标签）
+          if grep -q "<Package" "${{ env.PACKAGE_FILE }}"; then
+            echo "✅ package.xml格式正确"
+ 
+            # 统计要部署的组件数量
+            COMPONENT_COUNT=$(grep -c "<members>" "${{ env.PACKAGE_FILE }}" || echo "0")
+            echo "📊 部署组件数量: $COMPONENT_COUNT"
+ 
+            # 显示前10个组件（用于调试）
+            if [ $COMPONENT_COUNT -gt 0 ]; then
+              echo "📋 部署组件预览:"
+              grep "<members>" "${{ env.PACKAGE_FILE }}" | head -10 | sed 's/.*<members>//;s/<\/members>.*//'
+              if [ $COMPONENT_COUNT -gt 10 ]; then
+                echo "... 还有 $(($COMPONENT_COUNT - 10)) 个组件"
+              fi
+            fi
+ 
+            # 设置步骤输出变量
+            echo "has-package-xml=true" >> $GITHUB_OUTPUT
+            echo "package-path=${{ env.PACKAGE_FILE }}" >> $GITHUB_OUTPUT
+          else
+            echo "❌ 错误: package.xml格式不正确!"
+            echo "缺少<Package>标签，请检查文件格式"
+            echo "has-package-xml=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+        else
+          echo "❌ 错误: package.xml文件不存在!"
+          echo "文件路径: ${{ env.PACKAGE_FILE }}"
+          echo "请在manifest目录中创建package.xml文件"
+          echo "has-package-xml=false" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+ 
+    # 步骤3：根据分支确定目标环境
+    - name: Determine Target Environment
+      id: determine-environment
+      run: |
+        echo "🌐 分析分支环境配置..."
+ 
+        # 获取当前分支名称
+        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+        echo "当前分支: $BRANCH_NAME"
+ 
+        # 分支与环境映射
+        declare -A ENV_MAP
+        ENV_MAP["master"]="production"
+        ENV_MAP["test"]="test"
+        ENV_MAP["developer"]="development"
+ 
+        # 确定目标环境
+        if [ -n "${ENV_MAP[$BRANCH_NAME]}" ]; then
+          TARGET_ENV="${ENV_MAP[$BRANCH_NAME]}"
+          echo "✅ 目标环境: $TARGET_ENV"
+ 
+          # 确定测试执行策略
+          # master和test分支强制运行测试，developer分支可选
+          if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "test" ]]; then
+            SHOULD_RUN_TESTS="true"
+            RUN_ALL_TESTS="true"  # master/test分支运行所有相关测试
+            echo "🧪 测试策略: 强制运行所有相关测试"
+          else
+            SHOULD_RUN_TESTS="${{ vars.RUN_TESTS_ON_DEV || 'false' }}"  # 可从GitHub变量配置
+            RUN_ALL_TESTS="${{ vars.RUN_ALL_TESTS_ON_DEV || 'false' }}"
+            echo "🧪 测试策略: 可选运行测试 (配置值: $SHOULD_RUN_TESTS)"
+          fi
+ 
+          # 输出到GitHub环境变量
+          echo "target-environment=$TARGET_ENV" >> $GITHUB_OUTPUT
+          echo "should-run-tests=$SHOULD_RUN_TESTS" >> $GITHUB_OUTPUT
+          echo "run-all-tests=$RUN_ALL_TESTS" >> $GITHUB_OUTPUT
+ 
+          # 设置环境特定的配置
+          echo "🎯 环境配置:"
+          echo "SALESFORCE_ALIAS=${TARGET_ENV}-org" | tee -a $GITHUB_ENV
+ 
+          # 设置测试级别（可从GitHub变量配置，默认为RunLocalTests）
+          TEST_LEVEL="${{ vars.TEST_LEVEL || 'RunLocalTests' }}"
+          echo "DEPLOY_TEST_LEVEL=$TEST_LEVEL" | tee -a $GITHUB_ENV
+        else
+          echo "❌ 错误: 分支 '$BRANCH_NAME' 未配置环境映射!"
+          echo "请在env.BRANCH_ENV_MAPPING中配置此分支"
+          exit 1
+        fi
+ 
+    # 步骤4：上传package.xml作为工作流产物（便于调试）
+    - name: Upload Package.xml for Debugging
+      uses: actions/upload-artifact@v4
+      with:
+        name: package-manifest
+        path: ${{ env.PACKAGE_FILE }}
+        retention-days: 7  # 保留7天
+
+  # 第二阶段：Salesforce环境配置与验证
+  configure-and-validate:
+    name: Configure Salesforce and Validate Deployment
+    runs-on: ubuntu-latest
+    needs: pre-deployment-check  # 依赖第一阶段完成
+ 
+    # 条件：只有package.xml存在时才执行
+    if: ${{ needs.pre-deployment-check.outputs.has-package-xml == 'true' }}
+ 
+    steps:
+ 
+    # 步骤1：检出代码
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+ 
+    # 步骤2：设置Node.js环境（Salesforce CLI需要）
+    - name: Setup Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+ 
+    # 步骤3：安装Salesforce CLI
+    - name: Install Salesforce CLI
+      run: |
+        echo "📦 安装Salesforce CLI..."
+        npm install -g @salesforce/cli
+ 
+        # 验证安装
+        echo "Salesforce CLI版本:"
+        sf --version
+ 
+        # 安装必要的插件
+        echo "🔌 安装CLI插件..."
+        sf plugins install @salesforce/plugin-packaging
+        sf plugins install @salesforce/plugin-source
+ 
+    # 步骤4：配置JWT认证
+    - name: Configure JWT Authentication
+      run: |
+        echo "🔐 配置JWT认证..."
+ 
+        # 创建JWT私钥文件
+        echo "创建JWT私钥文件..."
+        echo "${{ secrets.SALESFORCE_SERVER_KEY }}" > server.key
+ 
+        # 验证私钥文件格式
+        if grep -q "BEGIN PRIVATE KEY" server.key; then
+          echo "✅ JWT私钥格式正确"
+        else
+          echo "❌ 错误: JWT私钥格式不正确!"
+          echo "请确保私钥包含正确的BEGIN/END标记"
+          exit 1
+        fi
+ 
+        # 确定目标组织别名
+        ORG_ALIAS="${{ needs.pre-deployment-check.outputs.target-environment }}-org"
+        echo "目标组织别名: $ORG_ALIAS"
+ 
+        # 登录到Salesforce组织
+        echo "登录到Salesforce..."
+        sf org login jwt \
+          --username "${{ secrets.SALESFORCE_USERNAME }}" \
+          --client-id "${{ secrets.SALESFORCE_CLIENT_ID }}" \
+          --jwt-key-file server.key \
+          --instance-url "${{ secrets.SALESFORCE_LOGIN_URL }}" \
+          --alias "$ORG_ALIAS" \
+          --set-default
+ 
+        echo "✅ Salesforce认证成功"
+ 
+    # 步骤5：执行部署验证（dry-run）
+    - name: Validate Deployment (Dry-run)
+      run: |
+        echo "🧪 开始部署验证..."
+        echo "环境: ${{ needs.pre-deployment-check.outputs.target-environment }}"
+        echo "package.xml路径: ${{ needs.pre-deployment-check.outputs.package-path }}"
+ 
+        # 显示验证配置
+        echo "📋 验证配置:"
+        echo "- 测试级别: ${{ env.DEPLOY_TEST_LEVEL }}"
+        echo "- 是否运行测试: ${{ needs.pre-deployment-check.outputs.should-run-tests }}"
+        echo "- 运行所有测试: ${{ needs.pre-deployment-check.outputs.run-all-tests }}"
+ 
+        # 构建验证命令
+        VALIDATE_CMD="sf project deploy validate"
+        VALIDATE_CMD="$VALIDATE_CMD --manifest ${{ needs.pre-deployment-check.outputs.package-path }}"
+        VALIDATE_CMD="$VALIDATE_CMD --target-org ${{ needs.pre-deployment-check.outputs.target-environment }}-org"
+        VALIDATE_CMD="$VALIDATE_CMD --test-level ${{ env.DEPLOY_TEST_LEVEL }}"
+        VALIDATE_CMD="$VALIDATE_CMD --wait 30"  # 等待30分钟
+        VALIDATE_CMD="$VALIDATE_CMD --verbose"  # 详细输出
+ 
+        echo "🚀 执行验证命令:"
+        echo "$VALIDATE_CMD"
+ 
+        # 执行验证
+        if eval $VALIDATE_CMD; then
+          echo "✅ 部署验证成功!"
+          echo "验证通过，可以继续执行实际部署"
+ 
+          # 设置验证成功标志
+          echo "VALIDATION_PASSED=true" >> $GITHUB_OUTPUT
+        else
+          echo "❌ 部署验证失败!"
+          echo "请检查package.xml中的组件和依赖关系"
+ 
+          echo "VALIDATION_PASSED=false" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+ 
+    # 步骤6：选择性运行测试（基于配置）
+    - name: Run Selected Tests (Conditional)
+      id: run-tests
+      if: ${{ needs.pre-deployment-check.outputs.should-run-tests == 'true' }}
+      run: |
+        echo "🧪 开始执行测试..."
+ 
+        # 从package.xml中提取Apex类
+        echo "从package.xml中提取Apex类..."
+        APEX_CLASSES=$(grep "<members>" "${{ needs.pre-deployment-check.outputs.package-path }}" |
+                      sed 's/.*<members>//;s/<\/members>.*//' |
+                      grep -v "^$" || true)
+ 
+        # 分离测试类和非测试类
+        TEST_CLASSES=""
+        REGULAR_CLASSES=""
+ 
+        for CLASS in $APEX_CLASSES; do
+          if [[ "$CLASS" == *Test || "$CLASS" == *Test* ]]; then
+            TEST_CLASSES="$TEST_CLASSES $CLASS"
+          else
+            REGULAR_CLASSES="$REGULAR_CLASSES $CLASS"
+          fi
+        done
+ 
+        echo "📊 分析结果:"
+        echo "- 找到Apex类总数: $(echo $APEX_CLASSES | wc -w)"
+        echo "- 测试类: $(echo $TEST_CLASSES | wc -w)个"
+        echo "- 普通类: $(echo $REGULAR_CLASSES | wc -w)个"
+ 
+        # 执行测试
+        if [ -n "$TEST_CLASSES" ]; then
+          echo "执行测试类: $TEST_CLASSES"
+ 
+          # 运行测试
+          sf apex run test \
+            --class-names "$TEST_CLASSES" \
+            --target-org "${{ needs.pre-deployment-check.outputs.target-environment }}-org" \
+            --code-coverage \
+            --result-format human \
+            --wait 20
+ 
+          echo "TEST_EXECUTION_PASSED=true" >> $GITHUB_OUTPUT
+        else
+          echo "⚠️  package.xml中没有找到测试类"
+          echo "TEST_EXECUTION_PASSED=skipped" >> $GITHUB_OUTPUT
+        fi
+ 
+    # 步骤7：清理敏感文件
+    - name: Cleanup Sensitive Files
+      if: always()  # 无论成功失败都执行清理
+      run: |
+        echo "🧹 清理敏感文件..."
+ 
+        # 删除JWT私钥文件
+        if [ -f "server.key" ]; then
+          rm -f server.key
+          echo "✅ 已删除JWT私钥文件"
+        fi
+ 
+        # 清理其他临时文件
+        rm -f .sfdx/*.json 2>/dev/null || true
+ 
+        echo "清理完成"
+
+  # 第三阶段：实际部署
+  deploy-to-org:
+    name: Deploy to Salesforce Org
+    runs-on: ubuntu-latest
+    needs: configure-and-validate  # 依赖第二阶段完成
+ 
+    # 条件：验证通过且不是Pull Request
+    if: |
+      needs.configure-and-validate.outputs.VALIDATION_PASSED == 'true' &&
+      github.event_name != 'pull_request'
+ 
+    steps:
+ 
+    # 步骤1：检出代码
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+ 
+    # 步骤2：设置Node.js环境
+    - name: Setup Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+ 
+    # 步骤3：安装Salesforce CLI
+    - name: Install Salesforce CLI
+      run: |
+        npm install -g @salesforce/cli
+        sf --version
+ 
+    # 步骤4：配置JWT认证
+    - name: Configure JWT Authentication
+      run: |
+        echo "🔐 重新配置JWT认证..."
+        echo "${{ secrets.SALESFORCE_SERVER_KEY }}" > server.key
+ 
+        ORG_ALIAS="${{ needs.pre-deployment-check.outputs.target-environment }}-org"
+ 
+        sf org login jwt \
+          --username "${{ secrets.SALESFORCE_USERNAME }}" \
+          --client-id "${{ secrets.SALESFORCE_CLIENT_ID }}" \
+          --jwt-key-file server.key \
+          --instance-url "${{ secrets.SALESFORCE_LOGIN_URL }}" \
+          --alias "$ORG_ALIAS" \
+          --set-default
+ 
+    # 步骤5：执行实际部署
+    - name: Execute Actual Deployment
+      run: |
+        echo "🚀 开始实际部署到Salesforce..."
+        echo "目标环境: ${{ needs.pre-deployment-check.outputs.target-environment }}"
+        echo "部署文件: ${{ needs.pre-deployment-check.outputs.package-path }}"
+ 
+        # 构建部署命令
+        DEPLOY_CMD="sf project deploy start"
+        DEPLOY_CMD="$DEPLOY_CMD --manifest ${{ needs.pre-deployment-check.outputs.package-path }}"
+        DEPLOY_CMD="$DEPLOY_CMD --target-org ${{ needs.pre-deployment-check.outputs.target-environment }}-org"
+        DEPLOY_CMD="$DEPLOY_CMD --test-level ${{ env.DEPLOY_TEST_LEVEL }}"
+        DEPLOY_CMD="$DEPLOY_CMD --wait 60"  # 等待60分钟，实际部署比验证慢
+        DEPLOY_CMD="$DEPLOY_CMD --verbose"
+ 
+        echo "执行部署命令:"
+        echo "$DEPLOY_CMD"
+ 
+        # 执行部署
+        echo "⏳ 部署进行中，请稍候..."
+        if eval $DEPLOY_CMD; then
+          echo "✅ 部署成功完成!"
+ 
+          # 获取部署详情
+          echo "📋 部署结果:"
+          sf project deploy report \
+            --target-org "${{ needs.pre-deployment-check.outputs.target-environment }}-org"
+ 
+          # 发送成功通知（可选）
+          echo "::notice title=Salesforce部署成功::变更已成功部署到${{ needs.pre-deployment-check.outputs.target-environment }}环境"
+        else
+          echo "❌ 部署失败!"
+ 
+          # 获取详细错误信息
+          echo "🔍 错误详情:"
+          sf project deploy report \
+            --target-org "${{ needs.pre-deployment-check.outputs.target-environment }}-org" \
+            --verbose || true
+ 
+          echo "::error title=Salesforce部署失败::部署到${{ needs.pre-deployment-check.outputs.target-environment }}环境时发生错误"
+          exit 1
+        fi
+ 
+    # 步骤6：部署后验证
+    - name: Post-deployment Verification
+      run: |
+        echo "🔍 执行部署后验证..."
+ 
+        # 检查部署状态
+        echo "检查最终部署状态..."
+        DEPLOY_STATUS=$(sf project deploy report \
+          --target-org "${{ needs.pre-deployment-check.outputs.target-environment }}-org" \
+          --json 2>/dev/null | jq -r '.result.status' || echo "UNKNOWN")
+ 
+        echo "部署状态: $DEPLOY_STATUS"
+ 
+        if [ "$DEPLOY_STATUS" = "Succeeded" ]; then
+          echo "✅ 部署后验证通过"
+ 
+          # 检查组件部署数量
+          COMPONENT_COUNT=$(sf project deploy report \
+            --target-org "${{ needs.pre-deployment-check.outputs.target-environment }}-org" \
+            --json 2>/dev/null | jq '.result.numberComponentsDeployed' || echo "0")
+ 
+          echo "成功部署组件数量: $COMPONENT_COUNT"
+        else
+          echo "⚠️  部署状态异常: $DEPLOY_STATUS"
+        fi
+ 
+    # 步骤7：清理和登出
+    - name: Cleanup and Logout
+      if: always()
+      run: |
+        echo "🧹 清理工作..."
+ 
+        # 清理文件
+        rm -f server.key 2>/dev/null || true
+ 
+        # 登出Salesforce组织
+        echo "登出Salesforce组织..."
+        sf org logout \
+          --target-org "${{ needs.pre-deployment-check.outputs.target-environment }}-org" \
+          --no-prompt 2>/dev/null || true
+ 
+        echo "清理完成"
+
+  # 第四阶段：部署报告生成（可选）
+  deployment-report:
+    name: Generate Deployment Report
+    runs-on: ubuntu-latest
+    needs: [pre-deployment-check, configure-and-validate, deploy-to-org]
+    if: always()  # 总是执行，用于生成报告
+ 
+    steps:
+ 
+    # 步骤1：生成部署报告
+    - name: Generate Report
+      run: |
+        echo "📊 生成部署报告..."
+ 
+        # 报告标题
+        echo "# Salesforce部署报告" > deployment-report.md
+        echo "" >> deployment-report.md
+ 
+        # 基本信息
+        echo "## 基本信息" >> deployment-report.md
+        echo "- **部署时间**: $(date '+%Y-%m-%d %H:%M:%S')" >> deployment-report.md
+        echo "- **分支**: ${{ github.ref }}" >> deployment-report.md
+        echo "- **环境**: ${{ needs.pre-deployment-check.outputs.target-environment }}" >> deployment-report.md
+        echo "- **触发事件**: ${{ github.event_name }}" >> deployment-report.md
+        echo "" >> deployment-report.md
+ 
+        # 部署结果
+        echo "## 部署结果" >> deployment-report.md
+ 
+        if [ "${{ needs.configure-and-validate.result }}" = "success" ] && [ "${{ needs.deploy-to-org.result }}" = "success" ]; then
+          echo "✅ **状态**: 部署成功" >> deployment-report.md
+        else
+          echo "❌ **状态**: 部署失败" >> deployment-report.md
+        fi
+ 
+        echo "" >> deployment-report.md
+ 
+        # 组件统计
+        echo "## 组件统计" >> deployment-report.md
+        echo "从package.xml中提取的组件已部署到目标环境。" >> deployment-report.md
+        echo "" >> deployment-report.md
+ 
+        # 测试执行情况
+        echo "## 测试执行" >> deployment-report.md
+        echo "- **是否执行测试**: ${{ needs.pre-deployment-check.outputs.should-run-tests }}" >> deployment-report.md
+        echo "- **测试级别**: ${{ env.DEPLOY_TEST_LEVEL }}" >> deployment-report.md
+        echo "" >> deployment-report.md
+ 
+        # 后续步骤
+        echo "## 后续步骤" >> deployment-report.md
+        echo "1. 在目标环境中验证部署的组件" >> deployment-report.md
+        echo "2. 运行集成测试（如适用）" >> deployment-report.md
+        echo "3. 更新相关文档" >> deployment-report.md
+ 
+        # 显示报告
+        echo "部署报告生成完成:"
+        cat deployment-report.md
+ 
+    # 步骤2：上传报告作为工作流产物
+    - name: Upload Deployment Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: deployment-report
+        path: deployment-report.md
+        retention-days: 30
