@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Shoes_rate__c</fullName>
+    <description>Sum of net quantity sold where “Comm. Category SubGroup” = SHOES, divided by the total sum of net quantity sold</description>
+    <externalId>false</externalId>
+    <label>% Shoes</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>15</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

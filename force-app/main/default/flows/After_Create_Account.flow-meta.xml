@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <environments>Default</environments>
+    <formulas>
+        <name>CreatedSalesPersonUpdated</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    NOT(ISBLANK({!$Record.LastModifiedBySA__pc})), 
+    {!$Record.LastModifiedBySA__pc},
+    {!$Record.Created_Sales_Person__pc}
+    
+)</expression>
+    </formulas>
+    <formulas>
+        <name>CreatedStoreUpdated</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    NOT(ISBLANK({!$Record.LastModifiedByStore__pc})), 
+    {!$Record.LastModifiedByStore__pc}, 
+    {!$Record.Created_Store__pc}
+)</expression>
+    </formulas>
+    <interviewLabel>After Create Account {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>After Create Account</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Account_Updated</name>
+        <label>Account Updated</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <inputAssignments>
+            <field>Created_Sales_Person__pc</field>
+            <value>
+                <elementReference>CreatedSalesPersonUpdated</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Created_Store__pc</field>
+            <value>
+                <elementReference>CreatedStoreUpdated</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Account_Updated</targetReference>
+        </connector>
+        <object>Account</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

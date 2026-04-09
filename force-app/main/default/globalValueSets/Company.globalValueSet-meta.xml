@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>811</fullName>
+        <default>false</default>
+        <label>CANADA RETAIL</label>
+    </customValue>
+    <customValue>
+        <fullName>729</fullName>
+        <default>false</default>
+        <label>Capri (Australia) Pty Ltd. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>726</fullName>
+        <default>false</default>
+        <label>Capri Alberto Gozzi for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>757</fullName>
+        <default>false</default>
+        <label>Capri Finance Hong Kong Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>738</fullName>
+        <default>false</default>
+        <label>Franchoo SAS for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>774</fullName>
+        <default>false</default>
+        <label>FREE CODE FOR CROSS BRAND</label>
+    </customValue>
+    <customValue>
+        <fullName>775</fullName>
+        <default>false</default>
+        <label>FREE CODE FOR CROSS BRAND_2</label>
+    </customValue>
+    <customValue>
+        <fullName>776</fullName>
+        <default>false</default>
+        <label>FREE CODE FOR CROSS BRAND_3</label>
+    </customValue>
+    <customValue>
+        <fullName>100</fullName>
+        <default>false</default>
+        <label>Gianni Versace S.r.l.</label>
+    </customValue>
+    <customValue>
+        <fullName>801</fullName>
+        <default>false</default>
+        <label>Gianni Versace S.r.l. - RETAIL</label>
+    </customValue>
+    <customValue>
+        <fullName>740</fullName>
+        <default>false</default>
+        <label>Itachoo S.r.l. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>734</fullName>
+        <default>false</default>
+        <label>J Choo (Switzerland) AG for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>736</fullName>
+        <default>false</default>
+        <label>J Choo Germany GmbH for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>748</fullName>
+        <default>false</default>
+        <label>J Choo USA Inc for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>731</fullName>
+        <default>false</default>
+        <label>J. Choo (Asia) Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>732</fullName>
+        <default>false</default>
+        <label>J. Choo (Austria) GmbH for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>733</fullName>
+        <default>false</default>
+        <label>J. Choo (Belgium) BVBA for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>779</fullName>
+        <default>false</default>
+        <label>J. Choo (Macau) Co., Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>780</fullName>
+        <default>false</default>
+        <label>J. Choo (Thailand) Co., Ltd. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>758</fullName>
+        <default>false</default>
+        <label>J. Choo Canada Inc for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>761</fullName>
+        <default>false</default>
+        <label>J. Choo Czech s.r.o. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>762</fullName>
+        <default>false</default>
+        <label>J. Choo Denmark for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>781</fullName>
+        <default>false</default>
+        <label>J. Choo Ireland for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>747</fullName>
+        <default>false</default>
+        <label>J. Choo Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>744</fullName>
+        <default>false</default>
+        <label>J. Choo Netherlands B.V. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>745</fullName>
+        <default>false</default>
+        <label>J. Choo Norway for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>765</fullName>
+        <default>false</default>
+        <label>J. Choo Portugal for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>777</fullName>
+        <default>false</default>
+        <label>J. Choo RUS LLC for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>759</fullName>
+        <default>false</default>
+        <label>J. Choo Supply SA for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>778</fullName>
+        <default>false</default>
+        <label>J. Choo Sweden for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>766</fullName>
+        <default>false</default>
+        <label>JC Gulf Trading LLC for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>767</fullName>
+        <default>false</default>
+        <label>JC Services ME DMCC for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>743</fullName>
+        <default>false</default>
+        <label>Jimmy Choo (Malaysia) SDN.BHD. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>760</fullName>
+        <default>false</default>
+        <label>Jimmy Choo (Shanghai) Trading Co. Limited Beijing Guomao Branch for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>735</fullName>
+        <default>false</default>
+        <label>Jimmy Choo (Shanghai) Trading Co. Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>746</fullName>
+        <default>false</default>
+        <label>Jimmy Choo (Singapore) Pte. Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>741</fullName>
+        <default>false</default>
+        <label>Jimmy Choo Florence Srl for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>768</fullName>
+        <default>false</default>
+        <label>Jimmy Choo Group Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>739</fullName>
+        <default>false</default>
+        <label>Jimmy Choo Hong Kong Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>763</fullName>
+        <default>false</default>
+        <label>Jimmy Choo Hungary KFT for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>764</fullName>
+        <default>false</default>
+        <label>Jimmy Choo Korea Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>737</fullName>
+        <default>false</default>
+        <label>Jimmy Choo Spain SL for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>742</fullName>
+        <default>false</default>
+        <label>Jimmy Choo Tokyo K.K. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>722</fullName>
+        <default>false</default>
+        <label>Michael Kors (Austria) GmbH for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>707</fullName>
+        <default>false</default>
+        <label>Michael Kors (Belgium) BVBA for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>751</fullName>
+        <default>false</default>
+        <label>Michael Kors (Bucharest Stores) SRL for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>701</fullName>
+        <default>false</default>
+        <label>Michael Kors (Canada) Holdings LTD for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>716</fullName>
+        <default>false</default>
+        <label>Michael Kors (Czech Republic) s.r.o. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>718</fullName>
+        <default>false</default>
+        <label>Michael Kors (Denmark) ApS for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>773</fullName>
+        <default>false</default>
+        <label>Michael Kors (Estonia) OÜ for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>708</fullName>
+        <default>false</default>
+        <label>Michael Kors (Europe) BV for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>749</fullName>
+        <default>false</default>
+        <label>Michael Kors (Europe) Holding Cooperatie U.A. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>772</fullName>
+        <default>false</default>
+        <label>Michael Kors (Finland) OY for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>714</fullName>
+        <default>false</default>
+        <label>Michael Kors (France) SA for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>712</fullName>
+        <default>false</default>
+        <label>Michael Kors (Germany) GmbH for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>725</fullName>
+        <default>false</default>
+        <label>Michael Kors (HK) Limited Taiwan Branch for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>727</fullName>
+        <default>false</default>
+        <label>Michael Kors (HongKong) Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>728</fullName>
+        <default>false</default>
+        <label>Michael Kors (Hongkong) Limited, Macau Branch for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>752</fullName>
+        <default>false</default>
+        <label>Michael Kors (Hungary) Kft for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>713</fullName>
+        <default>false</default>
+        <label>Michael Kors (Ireland) limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>719</fullName>
+        <default>false</default>
+        <label>Michael Kors (Italy) srl con socio unico for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>753</fullName>
+        <default>false</default>
+        <label>Michael Kors (Latvia) SIA for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>720</fullName>
+        <default>false</default>
+        <label>Michael Kors (Lithuania) UAB for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>754</fullName>
+        <default>false</default>
+        <label>Michael Kors (Luxembourg) Retail S.à r.l. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>706</fullName>
+        <default>false</default>
+        <label>Michael Kors (Netherlands) BV for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>771</fullName>
+        <default>false</default>
+        <label>Michael Kors (Norway) AS for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>705</fullName>
+        <default>false</default>
+        <label>Michael Kors (Poland) sp. z. o.o. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>715</fullName>
+        <default>false</default>
+        <label>Michael Kors (Portugal) lda for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>769</fullName>
+        <default>false</default>
+        <label>Michael Kors (Shanghai) Commercial Trading Company Limited, Dongguan Branch for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>717</fullName>
+        <default>false</default>
+        <label>Michael Kors (Sweden) AB for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>709</fullName>
+        <default>false</default>
+        <label>Michael Kors (Switzerland) GmbH for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>770</fullName>
+        <default>false</default>
+        <label>Michael Kors (Switzerland) Holdings GmbH for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>750</fullName>
+        <default>false</default>
+        <label>Michael Kors (Switzerland) International GmbH for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>710</fullName>
+        <default>false</default>
+        <label>Michael Kors (Switzerland) Retail GmbH for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>711</fullName>
+        <default>false</default>
+        <label>Michael Kors (UK) limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>700</fullName>
+        <default>false</default>
+        <label>Michael Kors (USA) Inc for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>723</fullName>
+        <default>false</default>
+        <label>Michael Kors Japan K.K. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>755</fullName>
+        <default>false</default>
+        <label>Michael Kors Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>704</fullName>
+        <default>false</default>
+        <label>Michael Kors Retail  Inc for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>721</fullName>
+        <default>false</default>
+        <label>Michael Kors Spain, S.L.U. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>703</fullName>
+        <default>false</default>
+        <label>Michael Kors Stores California Inc for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>702</fullName>
+        <default>false</default>
+        <label>Michael Kors Stores LLC for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>730</fullName>
+        <default>false</default>
+        <label>Michael Kors Trading (Shanghai) Co. Ltd. for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>724</fullName>
+        <default>false</default>
+        <label>Michael Kors Yuhanhoesa for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>756</fullName>
+        <default>false</default>
+        <label>MK (Shanghai) Commercial Trading Company Limited for CROSS BRAND DISCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>810</fullName>
+        <default>false</default>
+        <label>USA RETAIL</label>
+    </customValue>
+    <customValue>
+        <fullName>815</fullName>
+        <default>false</default>
+        <label>VAP Retail</label>
+    </customValue>
+    <customValue>
+        <fullName>500</fullName>
+        <default>false</default>
+        <label>Versace Asia Pacific Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>814</fullName>
+        <default>false</default>
+        <label>Versace Asia Pacific Ltd PRC DIV</label>
+    </customValue>
+    <customValue>
+        <fullName>850</fullName>
+        <default>false</default>
+        <label>Versace Australia</label>
+    </customValue>
+    <customValue>
+        <fullName>650</fullName>
+        <default>false</default>
+        <label>VERSACE AUSTRALIA PTY LIMITED</label>
+    </customValue>
+    <customValue>
+        <fullName>209</fullName>
+        <default>false</default>
+        <label>Versace Austria</label>
+    </customValue>
+    <customValue>
+        <fullName>200</fullName>
+        <default>false</default>
+        <label>Versace Belgique SA</label>
+    </customValue>
+    <customValue>
+        <fullName>450</fullName>
+        <default>false</default>
+        <label>Versace Canada</label>
+    </customValue>
+    <customValue>
+        <fullName>512</fullName>
+        <default>false</default>
+        <label>Versace China Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>513</fullName>
+        <default>false</default>
+        <label>Versace China Shanghai</label>
+    </customValue>
+    <customValue>
+        <fullName>210</fullName>
+        <default>false</default>
+        <label>Versace Czech</label>
+    </customValue>
+    <customValue>
+        <fullName>208</fullName>
+        <default>false</default>
+        <label>Versace Deutschland GMBH</label>
+    </customValue>
+    <customValue>
+        <fullName>216</fullName>
+        <default>false</default>
+        <label>Versace Espana SA</label>
+    </customValue>
+    <customValue>
+        <fullName>217</fullName>
+        <default>false</default>
+        <label>Versace Espana SA U Sucursal em Portugal</label>
+    </customValue>
+    <customValue>
+        <fullName>204</fullName>
+        <default>false</default>
+        <label>Versace France S.A.</label>
+    </customValue>
+    <customValue>
+        <fullName>233</fullName>
+        <default>false</default>
+        <label>VERSACE HELLAS SA</label>
+    </customValue>
+    <customValue>
+        <fullName>812</fullName>
+        <default>false</default>
+        <label>Versace Japan</label>
+    </customValue>
+    <customValue>
+        <fullName>504</fullName>
+        <default>false</default>
+        <label>Versace Japan Co. Ltd.</label>
+    </customValue>
+    <customValue>
+        <fullName>503</fullName>
+        <default>false</default>
+        <label>Versace Korea Co Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>823</fullName>
+        <default>false</default>
+        <label>Versace Korea Co_Ltd</label>
+    </customValue>
+    <customValue>
+        <fullName>510</fullName>
+        <default>false</default>
+        <label>VERSACE MACAU LIMITED</label>
+    </customValue>
+    <customValue>
+        <fullName>509</fullName>
+        <default>false</default>
+        <label>VERSACE MALAYSIA SDN BHD</label>
+    </customValue>
+    <customValue>
+        <fullName>207</fullName>
+        <default>false</default>
+        <label>Versace Monaco</label>
+    </customValue>
+    <customValue>
+        <fullName>234</fullName>
+        <default>false</default>
+        <label>Versace Nederland</label>
+    </customValue>
+    <customValue>
+        <fullName>851</fullName>
+        <default>false</default>
+        <label>Versace New Zealand</label>
+    </customValue>
+    <customValue>
+        <fullName>830</fullName>
+        <default>false</default>
+        <label>VERSACE RETAIL BRASIL</label>
+    </customValue>
+    <customValue>
+        <fullName>511</fullName>
+        <default>false</default>
+        <label>Versace Singapore</label>
+    </customValue>
+    <customValue>
+        <fullName>304</fullName>
+        <default>false</default>
+        <label>VERSACE SUISSE SA</label>
+    </customValue>
+    <customValue>
+        <fullName>508</fullName>
+        <default>false</default>
+        <label>Versace Taiwan CO.LTD</label>
+    </customValue>
+    <customValue>
+        <fullName>507</fullName>
+        <default>false</default>
+        <label>Versace Thailand</label>
+    </customValue>
+    <customValue>
+        <fullName>232</fullName>
+        <default>false</default>
+        <label>VERSACE TURCHIA</label>
+    </customValue>
+    <customValue>
+        <fullName>250</fullName>
+        <default>false</default>
+        <label>VERSACE UK PLC</label>
+    </customValue>
+    <customValue>
+        <fullName>212</fullName>
+        <default>false</default>
+        <label>VERSACE UK_PLC</label>
+    </customValue>
+    <customValue>
+        <fullName>400</fullName>
+        <default>false</default>
+        <label>Versace USA Inc.</label>
+    </customValue>
+    <customValue>
+        <fullName>230</fullName>
+        <default>false</default>
+        <label>VEZE CORNERS ESPANA SLU</label>
+    </customValue>
+    <customValue>
+        <fullName>231</fullName>
+        <default>false</default>
+        <label>VEZE CORNERS ESPANA sucursal (o branch)  PORTUGAL</label>
+    </customValue>
+    <customValue>
+        <fullName>205</fullName>
+        <default>false</default>
+        <label>VEZE France S.A.R.L.</label>
+    </customValue>
+    <customValue>
+        <fullName>890</fullName>
+        <default>false</default>
+        <label>Wholesale Irlanda Stores</label>
+    </customValue>
+    <masterLabel>Company</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Dynamics</fullName>
+        <default>false</default>
+        <label>Dynamics</label>
+    </customValue>
+    <customValue>
+        <fullName>GVIpos</fullName>
+        <default>false</default>
+        <label>GVIpos</label>
+    </customValue>
+    <customValue>
+        <fullName>SFCC</fullName>
+        <default>false</default>
+        <label>SFCC</label>
+    </customValue>
+    <customValue>
+        <fullName>Temera</fullName>
+        <default>false</default>
+        <label>Temera</label>
+    </customValue>
+    <customValue>
+        <fullName>Tulip</fullName>
+        <default>false</default>
+        <label>Tulip</label>
+    </customValue>
+    <customValue>
+        <fullName>XStore</fullName>
+        <default>false</default>
+        <label>XStore</label>
+    </customValue>
+    <masterLabel>Tech Source LastUpdate</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

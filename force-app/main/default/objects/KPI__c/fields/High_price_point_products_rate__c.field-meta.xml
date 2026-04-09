@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>High_price_point_products_rate__c</fullName>
+    <description>Percentage of high-priced products purchased by the customer compared to his own total purchased products</description>
+    <externalId>false</externalId>
+    <label>% of high price-point products</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>15</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,1871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>501</fullName>
+        <default>false</default>
+        <label>501</label>
+    </customValue>
+    <customValue>
+        <fullName>521</fullName>
+        <default>false</default>
+        <label>521</label>
+    </customValue>
+    <customValue>
+        <fullName>583</fullName>
+        <default>false</default>
+        <label>583</label>
+    </customValue>
+    <customValue>
+        <fullName>599</fullName>
+        <default>false</default>
+        <label>599</label>
+    </customValue>
+    <customValue>
+        <fullName>794</fullName>
+        <default>false</default>
+        <label>794</label>
+    </customValue>
+    <customValue>
+        <fullName>845</fullName>
+        <default>false</default>
+        <label>845</label>
+    </customValue>
+    <customValue>
+        <fullName>602</fullName>
+        <default>false</default>
+        <label>ACADEMIC TITLE  UNCENSORED</label>
+    </customValue>
+    <customValue>
+        <fullName>608</fullName>
+        <default>false</default>
+        <label>ACADEMIC TITLE WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>804</fullName>
+        <default>false</default>
+        <label>ADDITIONAL INFORMATION NOT CORRECT</label>
+    </customValue>
+    <customValue>
+        <fullName>336</fullName>
+        <default>false</default>
+        <label>ADDRESS EQUAL TO LOCALITY</label>
+    </customValue>
+    <customValue>
+        <fullName>340</fullName>
+        <default>false</default>
+        <label>ADDRESS ERROR</label>
+    </customValue>
+    <customValue>
+        <fullName>341</fullName>
+        <default>false</default>
+        <label>ADDRESS ERROR_1</label>
+    </customValue>
+    <customValue>
+        <fullName>342</fullName>
+        <default>false</default>
+        <label>ADDRESS ERROR_2</label>
+    </customValue>
+    <customValue>
+        <fullName>343</fullName>
+        <default>false</default>
+        <label>ADDRESS ERROR_3</label>
+    </customValue>
+    <customValue>
+        <fullName>399</fullName>
+        <default>false</default>
+        <label>ADDRESS ERROR_4</label>
+    </customValue>
+    <customValue>
+        <fullName>344</fullName>
+        <default>false</default>
+        <label>ADDRESS ERROR_5</label>
+    </customValue>
+    <customValue>
+        <fullName>345</fullName>
+        <default>false</default>
+        <label>ADDRESS ERROR_6</label>
+    </customValue>
+    <customValue>
+        <fullName>819</fullName>
+        <default>false</default>
+        <label>ADDRESS FOUND WITH NUMBER ANALYSIS</label>
+    </customValue>
+    <customValue>
+        <fullName>337</fullName>
+        <default>false</default>
+        <label>ADDRESS INCONSISTENT</label>
+    </customValue>
+    <customValue>
+        <fullName>323</fullName>
+        <default>false</default>
+        <label>ADDRESS MASK NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>826</fullName>
+        <default>false</default>
+        <label>ADDRESS NOT VALIDATED FROM THE CARE OF SECTION</label>
+    </customValue>
+    <customValue>
+        <fullName>827</fullName>
+        <default>false</default>
+        <label>ADDRESS OUT OF ISO CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>824</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED FROM THE CARE OF SECTION_1</label>
+    </customValue>
+    <customValue>
+        <fullName>825</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED FROM THE CARE OF SECTION_2</label>
+    </customValue>
+    <customValue>
+        <fullName>883</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH AUTOMATIC SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>891</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH CANDIDATES_1</label>
+    </customValue>
+    <customValue>
+        <fullName>892</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH CANDIDATES_2</label>
+    </customValue>
+    <customValue>
+        <fullName>893</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH CANDIDATES_3</label>
+    </customValue>
+    <customValue>
+        <fullName>880</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>884</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH TYPE 4 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>885</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH TYPE 5 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>886</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH TYPE 6 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>887</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH TYPE 7 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>888</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH TYPE 8 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>889</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH TYPE 9 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>882</fullName>
+        <default>false</default>
+        <label>ADDRESS VALIDATED WITH USER SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>809</fullName>
+        <default>false</default>
+        <label>ADDRESS WITH DIFFERENT WORDS</label>
+    </customValue>
+    <customValue>
+        <fullName>810</fullName>
+        <default>false</default>
+        <label>ADDRESS WITH MORE WORDS</label>
+    </customValue>
+    <customValue>
+        <fullName>817</fullName>
+        <default>false</default>
+        <label>ADDRESS WITH ONLY ONE WORD</label>
+    </customValue>
+    <customValue>
+        <fullName>808</fullName>
+        <default>false</default>
+        <label>ADDRESS WITH TWO WORDS LESS</label>
+    </customValue>
+    <customValue>
+        <fullName>977</fullName>
+        <default>false</default>
+        <label>ALLOCATION COORD. FIRST CANDIDATE NOT POSSIBLE</label>
+    </customValue>
+    <customValue>
+        <fullName>218</fullName>
+        <default>false</default>
+        <label>AMIGUOUS DATA OUT OF ISO CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>217</fullName>
+        <default>false</default>
+        <label>AMIGUOUS ISO CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>843</fullName>
+        <default>false</default>
+        <label>ANAG - DOUBLE</label>
+    </customValue>
+    <customValue>
+        <fullName>453</fullName>
+        <default>false</default>
+        <label>APPLICATION ERROR</label>
+    </customValue>
+    <customValue>
+        <fullName>961</fullName>
+        <default>false</default>
+        <label>APPROXIMATED  CIVIC NEAREST TO MEDIAN CALCULATED CIVIC (DIFFERENT SIDE)</label>
+    </customValue>
+    <customValue>
+        <fullName>960</fullName>
+        <default>false</default>
+        <label>APPROXIMATED  CIVIC NEAREST TO MEDIAN CALCULATED CIVIC (SAME SIDE)</label>
+    </customValue>
+    <customValue>
+        <fullName>959</fullName>
+        <default>false</default>
+        <label>APPROXIMATED (MEDIAN CALCULATED CIVIC)</label>
+    </customValue>
+    <customValue>
+        <fullName>958</fullName>
+        <default>false</default>
+        <label>APPROXIMATED (MIDDLE ROAD)</label>
+    </customValue>
+    <customValue>
+        <fullName>485</fullName>
+        <default>false</default>
+        <label>AREA CODE NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>445</fullName>
+        <default>false</default>
+        <label>ATECO CODE NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>976</fullName>
+        <default>false</default>
+        <label>AWARDED WITH COORD ATTR. QUAL. PROB &lt; 70</label>
+    </customValue>
+    <customValue>
+        <fullName>975</fullName>
+        <default>false</default>
+        <label>AWARDED WITH COORD ATTR. QUAL. PROB &gt; 70</label>
+    </customValue>
+    <customValue>
+        <fullName>213</fullName>
+        <default>false</default>
+        <label>CANDIDATE WITH ONE MISSING WORD</label>
+    </customValue>
+    <customValue>
+        <fullName>331</fullName>
+        <default>false</default>
+        <label>CANDIDATE WITH TOO MANY LESS WORDS</label>
+    </customValue>
+    <customValue>
+        <fullName>219</fullName>
+        <default>false</default>
+        <label>CANDIDATE WITH TOO MANY MISSING WORDS</label>
+    </customValue>
+    <customValue>
+        <fullName>335</fullName>
+        <default>false</default>
+        <label>CANDIDATES NOT VALID_1</label>
+    </customValue>
+    <customValue>
+        <fullName>338</fullName>
+        <default>false</default>
+        <label>CANDIDATES NOT VALID_2</label>
+    </customValue>
+    <customValue>
+        <fullName>905</fullName>
+        <default>false</default>
+        <label>CAPITAL LETTERS</label>
+    </customValue>
+    <customValue>
+        <fullName>806</fullName>
+        <default>false</default>
+        <label>CARE OF AT THE BEGINNING OF THE ADDRESS</label>
+    </customValue>
+    <customValue>
+        <fullName>805</fullName>
+        <default>false</default>
+        <label>CARE OF INSIDE ADDRESS</label>
+    </customValue>
+    <customValue>
+        <fullName>904</fullName>
+        <default>false</default>
+        <label>CHARACTERS AMBIGUOUS</label>
+    </customValue>
+    <customValue>
+        <fullName>956</fullName>
+        <default>false</default>
+        <label>CIVIC AND EXPONENT APPROXIMATED (MIDDLE ROAD)</label>
+    </customValue>
+    <customValue>
+        <fullName>951</fullName>
+        <default>false</default>
+        <label>CIVIC AND EXPONENT APPROXIMATED AT NUMBER CIVIC</label>
+    </customValue>
+    <customValue>
+        <fullName>953</fullName>
+        <default>false</default>
+        <label>CIVIC AND EXPONENT APPROXIMATED AT NUMBER CIVIC (DIFFERENT SIDE)</label>
+    </customValue>
+    <customValue>
+        <fullName>952</fullName>
+        <default>false</default>
+        <label>CIVIC AND EXPONENT APPROXIMATED AT NUMBER CIVIC (SAME SIDE)</label>
+    </customValue>
+    <customValue>
+        <fullName>950</fullName>
+        <default>false</default>
+        <label>CIVIC AND EXPONENT APPROXIMATED AT NUMBER WITHOUT EXP.</label>
+    </customValue>
+    <customValue>
+        <fullName>955</fullName>
+        <default>false</default>
+        <label>CIVIC APPROXIMATED (DIFFERENT SIDE)</label>
+    </customValue>
+    <customValue>
+        <fullName>957</fullName>
+        <default>false</default>
+        <label>CIVIC APPROXIMATED (MIDDLE ROAD)</label>
+    </customValue>
+    <customValue>
+        <fullName>954</fullName>
+        <default>false</default>
+        <label>CIVIC APPROXIMATED (SAME SIDE)</label>
+    </customValue>
+    <customValue>
+        <fullName>802</fullName>
+        <default>false</default>
+        <label>CIVIC NUMBER NOT PRESENT</label>
+    </customValue>
+    <customValue>
+        <fullName>305</fullName>
+        <default>false</default>
+        <label>CIVIC NUMBER RANGE OF STREET NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>828</fullName>
+        <default>false</default>
+        <label>CIVIC NUMBER VALIDATED</label>
+    </customValue>
+    <customValue>
+        <fullName>401</fullName>
+        <default>false</default>
+        <label>CODE ABSENT</label>
+    </customValue>
+    <customValue>
+        <fullName>466</fullName>
+        <default>false</default>
+        <label>CODE MICROZONE APPROXIMATE</label>
+    </customValue>
+    <customValue>
+        <fullName>931</fullName>
+        <default>false</default>
+        <label>CODE MICROZONE APPROXIMATE_1</label>
+    </customValue>
+    <customValue>
+        <fullName>436</fullName>
+        <default>false</default>
+        <label>CODE NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>492</fullName>
+        <default>false</default>
+        <label>CODE NOT FOUND_1</label>
+    </customValue>
+    <customValue>
+        <fullName>410</fullName>
+        <default>false</default>
+        <label>CODE OFFICE D.I.C. MISMATCH</label>
+    </customValue>
+    <customValue>
+        <fullName>409</fullName>
+        <default>false</default>
+        <label>CODE OFFICE D.I.C. WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>449</fullName>
+        <default>false</default>
+        <label>CODE OFFICE VAT WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>437</fullName>
+        <default>false</default>
+        <label>CODE PROVINCE NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>455</fullName>
+        <default>false</default>
+        <label>CODE ROAD ENHANCED</label>
+    </customValue>
+    <customValue>
+        <fullName>405</fullName>
+        <default>false</default>
+        <label>CODE TOO LONG</label>
+    </customValue>
+    <customValue>
+        <fullName>465</fullName>
+        <default>false</default>
+        <label>COMMON CODE MICRO ZONE</label>
+    </customValue>
+    <customValue>
+        <fullName>978</fullName>
+        <default>false</default>
+        <label>COORD. ASSIGNED TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>454</fullName>
+        <default>false</default>
+        <label>COORDINATE OUT OF RANGE</label>
+    </customValue>
+    <customValue>
+        <fullName>497</fullName>
+        <default>false</default>
+        <label>COORDINATES BEST ERROR</label>
+    </customValue>
+    <customValue>
+        <fullName>412</fullName>
+        <default>false</default>
+        <label>D.I.C. AND I.C.O. INCONSISTENT</label>
+    </customValue>
+    <customValue>
+        <fullName>411</fullName>
+        <default>false</default>
+        <label>D.I.C. AND P.I.N. INCONSISTENT</label>
+    </customValue>
+    <customValue>
+        <fullName>451</fullName>
+        <default>false</default>
+        <label>DATA ABSENT</label>
+    </customValue>
+    <customValue>
+        <fullName>441</fullName>
+        <default>false</default>
+        <label>DATA NEEDED AWAY</label>
+    </customValue>
+    <customValue>
+        <fullName>433</fullName>
+        <default>false</default>
+        <label>DATE LOCATION MISMATCH</label>
+    </customValue>
+    <customValue>
+        <fullName>407</fullName>
+        <default>false</default>
+        <label>DATE OF BIRTH MISMATCH</label>
+    </customValue>
+    <customValue>
+        <fullName>415</fullName>
+        <default>false</default>
+        <label>DATE OF BIRTH MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>901</fullName>
+        <default>false</default>
+        <label>DATE OF BIRTH MISSING_1</label>
+    </customValue>
+    <customValue>
+        <fullName>425</fullName>
+        <default>false</default>
+        <label>DAY OF BIRTH WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>490</fullName>
+        <default>false</default>
+        <label>DESCRIPTION OBJECT MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>478</fullName>
+        <default>false</default>
+        <label>DETAILS ARE WITH FORMAT MISMATCH</label>
+    </customValue>
+    <customValue>
+        <fullName>468</fullName>
+        <default>false</default>
+        <label>DETAILS NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>831</fullName>
+        <default>false</default>
+        <label>DIFFERENT POSTAL CODE FOR POST OFFICE BOX</label>
+    </customValue>
+    <customValue>
+        <fullName>709</fullName>
+        <default>false</default>
+        <label>DIFFERENT WORDS</label>
+    </customValue>
+    <customValue>
+        <fullName>458</fullName>
+        <default>false</default>
+        <label>DISTANCE NOT VALUED</label>
+    </customValue>
+    <customValue>
+        <fullName>708</fullName>
+        <default>false</default>
+        <label>DISTRICT 1 NOT VALIDATED</label>
+    </customValue>
+    <customValue>
+        <fullName>823</fullName>
+        <default>false</default>
+        <label>DISTRICT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>837</fullName>
+        <default>false</default>
+        <label>DISTRICT INCONSISTENT</label>
+    </customValue>
+    <customValue>
+        <fullName>840</fullName>
+        <default>false</default>
+        <label>DISTRICT VALIDATED FROM STREET NAME</label>
+    </customValue>
+    <customValue>
+        <fullName>841</fullName>
+        <default>false</default>
+        <label>DISTRICT VALIDATED FROM STREET NAME_1</label>
+    </customValue>
+    <customValue>
+        <fullName>842</fullName>
+        <default>false</default>
+        <label>DOP - DOUBLE</label>
+    </customValue>
+    <customValue>
+        <fullName>0</fullName>
+        <default>false</default>
+        <label>ELABORATION OK</label>
+    </customValue>
+    <customValue>
+        <fullName>990</fullName>
+        <default>false</default>
+        <label>ERROR CONNECTING JAVA</label>
+    </customValue>
+    <customValue>
+        <fullName>317</fullName>
+        <default>false</default>
+        <label>EXTRA URBAN NOT VALID_1</label>
+    </customValue>
+    <customValue>
+        <fullName>318</fullName>
+        <default>false</default>
+        <label>EXTRA URBAN NOT VALID_2</label>
+    </customValue>
+    <customValue>
+        <fullName>319</fullName>
+        <default>false</default>
+        <label>EXTRA URBAN NOT VALID_3</label>
+    </customValue>
+    <customValue>
+        <fullName>621</fullName>
+        <default>false</default>
+        <label>FAMILY FORCED</label>
+    </customValue>
+    <customValue>
+        <fullName>619</fullName>
+        <default>false</default>
+        <label>FATHER FOUND ONLY FOR LAST NAME</label>
+    </customValue>
+    <customValue>
+        <fullName>971</fullName>
+        <default>false</default>
+        <label>FIRST FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>612</fullName>
+        <default>false</default>
+        <label>FIRST RULE OF NAME - WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>807</fullName>
+        <default>false</default>
+        <label>FIRST WORD NOT CORRECT</label>
+    </customValue>
+    <customValue>
+        <fullName>616</fullName>
+        <default>false</default>
+        <label>FORCED NAME</label>
+    </customValue>
+    <customValue>
+        <fullName>339</fullName>
+        <default>false</default>
+        <label>FOREIGN ADDRESS NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>226</fullName>
+        <default>false</default>
+        <label>FOREIGN COUNTRY NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>227</fullName>
+        <default>false</default>
+        <label>FOREIGN LOCALITY NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>122</fullName>
+        <default>false</default>
+        <label>FORMAT AT WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>456</fullName>
+        <default>false</default>
+        <label>FORMAT NOT EXPECTED</label>
+    </customValue>
+    <customValue>
+        <fullName>617</fullName>
+        <default>false</default>
+        <label>FOUND AT</label>
+    </customValue>
+    <customValue>
+        <fullName>618</fullName>
+        <default>false</default>
+        <label>FOUND ONLY HIS NAME</label>
+    </customValue>
+    <customValue>
+        <fullName>121</fullName>
+        <default>false</default>
+        <label>FOUND TOO MANY AT</label>
+    </customValue>
+    <customValue>
+        <fullName>601</fullName>
+        <default>false</default>
+        <label>FREENAME ONLY WITH DATA OF THE PERSON</label>
+    </customValue>
+    <customValue>
+        <fullName>972</fullName>
+        <default>false</default>
+        <label>FULL COMBO</label>
+    </customValue>
+    <customValue>
+        <fullName>324</fullName>
+        <default>false</default>
+        <label>HOUSE NUMBER NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>327</fullName>
+        <default>false</default>
+        <label>HOUSE NUMBER NOT FOUND FOR MULTI-ZIP STREET</label>
+    </customValue>
+    <customValue>
+        <fullName>935</fullName>
+        <default>false</default>
+        <label>ID TELEATLAS NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>498</fullName>
+        <default>false</default>
+        <label>INCONSISTENCY PARAMETERS 1 NEW GEO</label>
+    </customValue>
+    <customValue>
+        <fullName>499</fullName>
+        <default>false</default>
+        <label>INCONSISTENCY PARAMETERS 2 NEW GEO</label>
+    </customValue>
+    <customValue>
+        <fullName>724</fullName>
+        <default>false</default>
+        <label>INCONSISTENT WITH POSTAL TOWN</label>
+    </customValue>
+    <customValue>
+        <fullName>428</fullName>
+        <default>false</default>
+        <label>INVALID CHARACTERS</label>
+    </customValue>
+    <customValue>
+        <fullName>102</fullName>
+        <default>false</default>
+        <label>INVALID DATA_1</label>
+    </customValue>
+    <customValue>
+        <fullName>103</fullName>
+        <default>false</default>
+        <label>INVALID DATA_2</label>
+    </customValue>
+    <customValue>
+        <fullName>105</fullName>
+        <default>false</default>
+        <label>INVALID DATA_3</label>
+    </customValue>
+    <customValue>
+        <fullName>204</fullName>
+        <default>false</default>
+        <label>INVALID DATA_4</label>
+    </customValue>
+    <customValue>
+        <fullName>304</fullName>
+        <default>false</default>
+        <label>INVALID DATA_5</label>
+    </customValue>
+    <customValue>
+        <fullName>116</fullName>
+        <default>false</default>
+        <label>LAST NAME ABSENT_1</label>
+    </customValue>
+    <customValue>
+        <fullName>120</fullName>
+        <default>false</default>
+        <label>LAST NAME ABSENT_2</label>
+    </customValue>
+    <customValue>
+        <fullName>435</fullName>
+        <default>false</default>
+        <label>LAST NAME DOUBLE_1</label>
+    </customValue>
+    <customValue>
+        <fullName>907</fullName>
+        <default>false</default>
+        <label>LAST NAME DOUBLE_2</label>
+    </customValue>
+    <customValue>
+        <fullName>115</fullName>
+        <default>false</default>
+        <label>LAST NAME INCORRECT</label>
+    </customValue>
+    <customValue>
+        <fullName>422</fullName>
+        <default>false</default>
+        <label>LAST NAME INSIGNIFICANT</label>
+    </customValue>
+    <customValue>
+        <fullName>413</fullName>
+        <default>false</default>
+        <label>LAST NAME MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>419</fullName>
+        <default>false</default>
+        <label>LAST NAME WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>970</fullName>
+        <default>false</default>
+        <label>LEVEL FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>493</fullName>
+        <default>false</default>
+        <label>LEVEL NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>734</fullName>
+        <default>false</default>
+        <label>LOCALITÀ ESTRATTA DOPO CONTROLLO CAP</label>
+    </customValue>
+    <customValue>
+        <fullName>225</fullName>
+        <default>false</default>
+        <label>LOCALITY AND POSTAL CODE AMBIGUOUS</label>
+    </customValue>
+    <customValue>
+        <fullName>701</fullName>
+        <default>false</default>
+        <label>LOCALITY CANDIDATE FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>702</fullName>
+        <default>false</default>
+        <label>LOCALITY CANDIDATE FOUND WITH DIFFERENT LEVEL</label>
+    </customValue>
+    <customValue>
+        <fullName>206</fullName>
+        <default>false</default>
+        <label>LOCALITY CANDIDATE OUT OF SEQUENCE</label>
+    </customValue>
+    <customValue>
+        <fullName>714</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>791</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND FROM CANDIDATES_1</label>
+    </customValue>
+    <customValue>
+        <fullName>792</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND FROM CANDIDATES_2</label>
+    </customValue>
+    <customValue>
+        <fullName>793</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND FROM CANDIDATES_3</label>
+    </customValue>
+    <customValue>
+        <fullName>783</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND WITH AUTOMATIC SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>780</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND WITH SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>784</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND WITH TYPE 4 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>785</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND WITH TYPE 5 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>786</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND WITH TYPE 6 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>787</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND WITH TYPE 7 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>788</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND WITH TYPE 8 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>789</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND WITH TYPE 9 SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>782</fullName>
+        <default>false</default>
+        <label>LOCALITY FOUND WITH USER SYNONYM</label>
+    </customValue>
+    <customValue>
+        <fullName>202</fullName>
+        <default>false</default>
+        <label>LOCALITY NOT FOUND_1</label>
+    </customValue>
+    <customValue>
+        <fullName>238</fullName>
+        <default>false</default>
+        <label>LOCALITY NOT FOUND_2</label>
+    </customValue>
+    <customValue>
+        <fullName>242</fullName>
+        <default>false</default>
+        <label>LOCALITY NOT FOUND_3</label>
+    </customValue>
+    <customValue>
+        <fullName>243</fullName>
+        <default>false</default>
+        <label>LOCALITY NOT FOUND_4</label>
+    </customValue>
+    <customValue>
+        <fullName>332</fullName>
+        <default>false</default>
+        <label>LOCALITY NOT FOUND_5</label>
+    </customValue>
+    <customValue>
+        <fullName>244</fullName>
+        <default>false</default>
+        <label>LOCALITY NOT FOUND_6</label>
+    </customValue>
+    <customValue>
+        <fullName>212</fullName>
+        <default>false</default>
+        <label>LOCALITY NOT FOUND (NO CANDIDATES)</label>
+    </customValue>
+    <customValue>
+        <fullName>727</fullName>
+        <default>false</default>
+        <label>LOCALITY OUT OF ISO</label>
+    </customValue>
+    <customValue>
+        <fullName>216</fullName>
+        <default>false</default>
+        <label>LOCALITY OUT OF ISO CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>210</fullName>
+        <default>false</default>
+        <label>LOCALITY OUT OF SEQUENCE</label>
+    </customValue>
+    <customValue>
+        <fullName>209</fullName>
+        <default>false</default>
+        <label>LOCALITY WITH FIRST WORD NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>208</fullName>
+        <default>false</default>
+        <label>LOCALITY WITH INVALID ELEMENTS</label>
+    </customValue>
+    <customValue>
+        <fullName>207</fullName>
+        <default>false</default>
+        <label>LOCALITY WITH MORE WORDS_1</label>
+    </customValue>
+    <customValue>
+        <fullName>710</fullName>
+        <default>false</default>
+        <label>LOCALITY WITH MORE WORDS_2</label>
+    </customValue>
+    <customValue>
+        <fullName>711</fullName>
+        <default>false</default>
+        <label>LOCALITY WITH TWO LESS WORDS</label>
+    </customValue>
+    <customValue>
+        <fullName>205</fullName>
+        <default>false</default>
+        <label>LOCALITY WITH WORDS OUT OF SEQUENCE</label>
+    </customValue>
+    <customValue>
+        <fullName>494</fullName>
+        <default>false</default>
+        <label>LOCATIONS NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>998</fullName>
+        <default>false</default>
+        <label>LOGIC ERROR ON DATA</label>
+    </customValue>
+    <customValue>
+        <fullName>334</fullName>
+        <default>false</default>
+        <label>MASK ERROR</label>
+    </customValue>
+    <customValue>
+        <fullName>943</fullName>
+        <default>false</default>
+        <label>MICRO ZONE APPROXIMATE TO GEOCODING TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>942</fullName>
+        <default>false</default>
+        <label>MICRO ZONE ATTRIBUTED TO GEOCODING TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>947</fullName>
+        <default>false</default>
+        <label>MICRO-ZONE 2001 CONTAINS THE 91 WITH WEIGHT 70</label>
+    </customValue>
+    <customValue>
+        <fullName>939</fullName>
+        <default>false</default>
+        <label>MICROZONE APPROXIMATE</label>
+    </customValue>
+    <customValue>
+        <fullName>945</fullName>
+        <default>false</default>
+        <label>MICRO-ZONE IN 2001 APPROXIMATE WEIGHT WITH 70 TO 91</label>
+    </customValue>
+    <customValue>
+        <fullName>117</fullName>
+        <default>false</default>
+        <label>MIDDLE NAME WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>442</fullName>
+        <default>false</default>
+        <label>MISSING AREA CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>938</fullName>
+        <default>false</default>
+        <label>MISSING ZIP, MULTICAP CODE AREA</label>
+    </customValue>
+    <customValue>
+        <fullName>424</fullName>
+        <default>false</default>
+        <label>MONTH OF BIRTH WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>496</fullName>
+        <default>false</default>
+        <label>MULTI MUNICIPALITY DISTRICT</label>
+    </customValue>
+    <customValue>
+        <fullName>203</fullName>
+        <default>false</default>
+        <label>MULTIPLE LOCALITY</label>
+    </customValue>
+    <customValue>
+        <fullName>303</fullName>
+        <default>false</default>
+        <label>MULTIPLE STREETS</label>
+    </customValue>
+    <customValue>
+        <fullName>325</fullName>
+        <default>false</default>
+        <label>MULTIPLE STREETS_1</label>
+    </customValue>
+    <customValue>
+        <fullName>326</fullName>
+        <default>false</default>
+        <label>MULTIPLE STREETS (ZIP)</label>
+    </customValue>
+    <customValue>
+        <fullName>930</fullName>
+        <default>false</default>
+        <label>MUNICIPALITY CODE MICRO ZONE</label>
+    </customValue>
+    <customValue>
+        <fullName>101</fullName>
+        <default>false</default>
+        <label>NAME ABSENT_1</label>
+    </customValue>
+    <customValue>
+        <fullName>114</fullName>
+        <default>false</default>
+        <label>NAME ABSENT_2</label>
+    </customValue>
+    <customValue>
+        <fullName>119</fullName>
+        <default>false</default>
+        <label>NAME ABSENT_3</label>
+    </customValue>
+    <customValue>
+        <fullName>434</fullName>
+        <default>false</default>
+        <label>NAME DOUBLE</label>
+    </customValue>
+    <customValue>
+        <fullName>906</fullName>
+        <default>false</default>
+        <label>NAME DOUBLE_1</label>
+    </customValue>
+    <customValue>
+        <fullName>423</fullName>
+        <default>false</default>
+        <label>NAME INSIGNIFICANT</label>
+    </customValue>
+    <customValue>
+        <fullName>414</fullName>
+        <default>false</default>
+        <label>NAME MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>111</fullName>
+        <default>false</default>
+        <label>NAME NOT FOUND_1</label>
+    </customValue>
+    <customValue>
+        <fullName>112</fullName>
+        <default>false</default>
+        <label>NAME NOT FOUND_2</label>
+    </customValue>
+    <customValue>
+        <fullName>908</fullName>
+        <default>false</default>
+        <label>NAME REVERSED</label>
+    </customValue>
+    <customValue>
+        <fullName>420</fullName>
+        <default>false</default>
+        <label>NAME WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>201</fullName>
+        <default>false</default>
+        <label>NO DATA_1</label>
+    </customValue>
+    <customValue>
+        <fullName>301</fullName>
+        <default>false</default>
+        <label>NO DATA_2</label>
+    </customValue>
+    <customValue>
+        <fullName>312</fullName>
+        <default>false</default>
+        <label>NO DATA FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>460</fullName>
+        <default>false</default>
+        <label>NO MCZ ARC</label>
+    </customValue>
+    <customValue>
+        <fullName>459</fullName>
+        <default>false</default>
+        <label>NO POI FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>470</fullName>
+        <default>false</default>
+        <label>NO TELEATLAS ARC</label>
+    </customValue>
+    <customValue>
+        <fullName>452</fullName>
+        <default>false</default>
+        <label>NO ZONE CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>118</fullName>
+        <default>false</default>
+        <label>NOMINATIVE  DISCARDED</label>
+    </customValue>
+    <customValue>
+        <fullName>999</fullName>
+        <default>false</default>
+        <label>NOT ELABORATE</label>
+    </customValue>
+    <customValue>
+        <fullName>997</fullName>
+        <default>false</default>
+        <label>NOT ELABORATE FOR ERROR PLACE</label>
+    </customValue>
+    <customValue>
+        <fullName>483</fullName>
+        <default>false</default>
+        <label>NOT FOUND ALPHANUMERICAL  CODE OBJ</label>
+    </customValue>
+    <customValue>
+        <fullName>464</fullName>
+        <default>false</default>
+        <label>NOT FOUND ANY CODE MICRO ZONE</label>
+    </customValue>
+    <customValue>
+        <fullName>467</fullName>
+        <default>false</default>
+        <label>NOT FOUND CENTROID MICRO ZONE</label>
+    </customValue>
+    <customValue>
+        <fullName>475</fullName>
+        <default>false</default>
+        <label>NOT FOUND DS TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>474</fullName>
+        <default>false</default>
+        <label>NOT FOUND ID TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>404</fullName>
+        <default>false</default>
+        <label>NOT NUMERIC CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>816</fullName>
+        <default>false</default>
+        <label>NOT VALID POSTAL CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>820</fullName>
+        <default>false</default>
+        <label>NUMBERS IN THE STREET NAME</label>
+    </customValue>
+    <customValue>
+        <fullName>1</fullName>
+        <default>false</default>
+        <label>Ok</label>
+    </customValue>
+    <customValue>
+        <fullName>620</fullName>
+        <default>false</default>
+        <label>ONLY NAMES</label>
+    </customValue>
+    <customValue>
+        <fullName>818</fullName>
+        <default>false</default>
+        <label>ONLY NUMERS IN THE ADDRESS</label>
+    </customValue>
+    <customValue>
+        <fullName>104</fullName>
+        <default>false</default>
+        <label>OUT OF RANGE DATA</label>
+    </customValue>
+    <customValue>
+        <fullName>477</fullName>
+        <default>false</default>
+        <label>OVERLOAD DS TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>476</fullName>
+        <default>false</default>
+        <label>OVERLOAD ID TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>461</fullName>
+        <default>false</default>
+        <label>OVERLOAD MCZ ARC</label>
+    </customValue>
+    <customValue>
+        <fullName>471</fullName>
+        <default>false</default>
+        <label>OVERLOAD TELEATLAS ARC</label>
+    </customValue>
+    <customValue>
+        <fullName>417</fullName>
+        <default>false</default>
+        <label>PLACE OF BIRTH MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>427</fullName>
+        <default>false</default>
+        <label>PLACE OF BIRTH NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>979</fullName>
+        <default>false</default>
+        <label>POI fuori Provincia</label>
+    </customValue>
+    <customValue>
+        <fullName>220</fullName>
+        <default>false</default>
+        <label>POOR INFORMATION FOR MATCHCODE CONSTRUCTION</label>
+    </customValue>
+    <customValue>
+        <fullName>830</fullName>
+        <default>false</default>
+        <label>POST OFFICE BOX</label>
+    </customValue>
+    <customValue>
+        <fullName>821</fullName>
+        <default>false</default>
+        <label>POST OFFICE BOX FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>803</fullName>
+        <default>false</default>
+        <label>POSTAL CODE CHANGED</label>
+    </customValue>
+    <customValue>
+        <fullName>704</fullName>
+        <default>false</default>
+        <label>POSTAL CODE DIFFERENT_1</label>
+    </customValue>
+    <customValue>
+        <fullName>705</fullName>
+        <default>false</default>
+        <label>POSTAL CODE DIFFERENT_2</label>
+    </customValue>
+    <customValue>
+        <fullName>706</fullName>
+        <default>false</default>
+        <label>POSTAL CODE DIFFERENT_3</label>
+    </customValue>
+    <customValue>
+        <fullName>707</fullName>
+        <default>false</default>
+        <label>POSTAL CODE DIFFERENT_4</label>
+    </customValue>
+    <customValue>
+        <fullName>813</fullName>
+        <default>false</default>
+        <label>POSTAL CODE DIFFERENT_5</label>
+    </customValue>
+    <customValue>
+        <fullName>814</fullName>
+        <default>false</default>
+        <label>POSTAL CODE DIFFERENT_6</label>
+    </customValue>
+    <customValue>
+        <fullName>715</fullName>
+        <default>false</default>
+        <label>POSTAL CODE DIFFERENT FROM DEPARTEMENT CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>713</fullName>
+        <default>false</default>
+        <label>POSTAL CODE FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>329</fullName>
+        <default>false</default>
+        <label>POSTAL CODE INCONSISTENT_1</label>
+    </customValue>
+    <customValue>
+        <fullName>228</fullName>
+        <default>false</default>
+        <label>POSTAL CODE INCONSISTENT_2</label>
+    </customValue>
+    <customValue>
+        <fullName>224</fullName>
+        <default>false</default>
+        <label>POSTAL CODE INCONSISTENT WITH POSTAL TOWMN</label>
+    </customValue>
+    <customValue>
+        <fullName>703</fullName>
+        <default>false</default>
+        <label>POSTAL CODE NOT CORRECT</label>
+    </customValue>
+    <customValue>
+        <fullName>832</fullName>
+        <default>false</default>
+        <label>POSTAL CODE NOT VALID FOR POST OFFICE BOX</label>
+    </customValue>
+    <customValue>
+        <fullName>223</fullName>
+        <default>false</default>
+        <label>POSTAL TOWN INCONSISTENT DATA</label>
+    </customValue>
+    <customValue>
+        <fullName>221</fullName>
+        <default>false</default>
+        <label>POSTAL TOWN NOT FOUND_1</label>
+    </customValue>
+    <customValue>
+        <fullName>222</fullName>
+        <default>false</default>
+        <label>POSTAL TOWN NOT FOUND_2</label>
+    </customValue>
+    <customValue>
+        <fullName>446</fullName>
+        <default>false</default>
+        <label>RAESAE CODE NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>613</fullName>
+        <default>false</default>
+        <label>SECOND RULE OF NAME - WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>615</fullName>
+        <default>false</default>
+        <label>SECONDARY LAST NAME MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>614</fullName>
+        <default>false</default>
+        <label>SECONDARY NAME MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>408</fullName>
+        <default>false</default>
+        <label>SEX MISMATCH</label>
+    </customValue>
+    <customValue>
+        <fullName>416</fullName>
+        <default>false</default>
+        <label>SEX MISSING_1</label>
+    </customValue>
+    <customValue>
+        <fullName>902</fullName>
+        <default>false</default>
+        <label>SEX MISSING_2</label>
+    </customValue>
+    <customValue>
+        <fullName>604</fullName>
+        <default>false</default>
+        <label>SEX NOT DETERMINED</label>
+    </customValue>
+    <customValue>
+        <fullName>426</fullName>
+        <default>false</default>
+        <label>SEX WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>716</fullName>
+        <default>false</default>
+        <label>SPECIAL POSTAL CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>609</fullName>
+        <default>false</default>
+        <label>SPEGIU - ALREADY PRESENT</label>
+    </customValue>
+    <customValue>
+        <fullName>610</fullName>
+        <default>false</default>
+        <label>SPEGIU - DIFFERENT</label>
+    </customValue>
+    <customValue>
+        <fullName>611</fullName>
+        <default>false</default>
+        <label>SPEGIU - WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>894</fullName>
+        <default>false</default>
+        <label>Strada Riconosciuta con Candidato Maglie Larghe</label>
+    </customValue>
+    <customValue>
+        <fullName>838</fullName>
+        <default>false</default>
+        <label>Strada Riconosciuta con Multi-Macrodug</label>
+    </customValue>
+    <customValue>
+        <fullName>801</fullName>
+        <default>false</default>
+        <label>STREET CANDIDATE FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>310</fullName>
+        <default>false</default>
+        <label>STREET NOT EXTRACTED</label>
+    </customValue>
+    <customValue>
+        <fullName>302</fullName>
+        <default>false</default>
+        <label>STREET NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>328</fullName>
+        <default>false</default>
+        <label>STREET NOT RECIGNIZABLE</label>
+    </customValue>
+    <customValue>
+        <fullName>321</fullName>
+        <default>false</default>
+        <label>STREET WITH COMMA AND SEPARATED HOUSE NUMBER</label>
+    </customValue>
+    <customValue>
+        <fullName>309</fullName>
+        <default>false</default>
+        <label>STREET WITH FIRST WORD NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>308</fullName>
+        <default>false</default>
+        <label>STREET WITH INVALID ELEMENTS</label>
+    </customValue>
+    <customValue>
+        <fullName>307</fullName>
+        <default>false</default>
+        <label>STREET WITH MORE WORDS</label>
+    </customValue>
+    <customValue>
+        <fullName>320</fullName>
+        <default>false</default>
+        <label>STREET WITH TOO MANY COMMAS</label>
+    </customValue>
+    <customValue>
+        <fullName>812</fullName>
+        <default>false</default>
+        <label>STREET WITH TOO MANY LESS WORDS</label>
+    </customValue>
+    <customValue>
+        <fullName>306</fullName>
+        <default>false</default>
+        <label>STREET WITH WORDS OUT OF SEQUENCE</label>
+    </customValue>
+    <customValue>
+        <fullName>444</fullName>
+        <default>false</default>
+        <label>TAX CODE MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>934</fullName>
+        <default>false</default>
+        <label>TELEATLAS APPROSSIMATO2</label>
+    </customValue>
+    <customValue>
+        <fullName>479</fullName>
+        <default>false</default>
+        <label>TELEATLAS APPROXIMATE_1</label>
+    </customValue>
+    <customValue>
+        <fullName>933</fullName>
+        <default>false</default>
+        <label>TELEATLAS APPROXIMATE_2</label>
+    </customValue>
+    <customValue>
+        <fullName>480</fullName>
+        <default>false</default>
+        <label>TELEATLAS APPROXIMATE_3</label>
+    </customValue>
+    <customValue>
+        <fullName>481</fullName>
+        <default>false</default>
+        <label>TELEATLAS OF TYPE_5</label>
+    </customValue>
+    <customValue>
+        <fullName>937</fullName>
+        <default>false</default>
+        <label>TELEATLAS OF TYPE 5</label>
+    </customValue>
+    <customValue>
+        <fullName>941</fullName>
+        <default>false</default>
+        <label>THE MICRO-ZONE 2001 CONTAINS THE 91 WITH WEIGHT 100</label>
+    </customValue>
+    <customValue>
+        <fullName>946</fullName>
+        <default>false</default>
+        <label>THE MICRO-ZONE 2001 CONTAINS THE WEIGHT WITH WEIGHT 91 85</label>
+    </customValue>
+    <customValue>
+        <fullName>948</fullName>
+        <default>false</default>
+        <label>THE MICRO-ZONE 2001 IS 91 CONTAINED (APPROXIMATED)</label>
+    </customValue>
+    <customValue>
+        <fullName>949</fullName>
+        <default>false</default>
+        <label>THE MICRO-ZONE 2001 IS DIFFERENT FROM 91 (APPROXIMATED)</label>
+    </customValue>
+    <customValue>
+        <fullName>940</fullName>
+        <default>false</default>
+        <label>THE MICRO-ZONE 2001 IS EQUAL TO 91 WITH WEIGHT 100</label>
+    </customValue>
+    <customValue>
+        <fullName>944</fullName>
+        <default>false</default>
+        <label>THE MICRO-ZONE IS 2001 APPROXIMATE WEIGHT WITH 85 TO 91</label>
+    </customValue>
+    <customValue>
+        <fullName>330</fullName>
+        <default>false</default>
+        <label>THOROUGHFARE NOT VALID</label>
+    </customValue>
+    <customValue>
+        <fullName>811</fullName>
+        <default>false</default>
+        <label>THOROUGHFARE TYPE (DUG) NOT CORRECT</label>
+    </customValue>
+    <customValue>
+        <fullName>606</fullName>
+        <default>false</default>
+        <label>TITLE ALREADY PRESENT</label>
+    </customValue>
+    <customValue>
+        <fullName>472</fullName>
+        <default>false</default>
+        <label>TOO MANY ARCS TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>215</fullName>
+        <default>false</default>
+        <label>TOO MANY CANDIDATES</label>
+    </customValue>
+    <customValue>
+        <fullName>211</fullName>
+        <default>false</default>
+        <label>TOO MANY CANDIDATES FOR LOCALITY</label>
+    </customValue>
+    <customValue>
+        <fullName>214</fullName>
+        <default>false</default>
+        <label>TOO MANY CANDIDATES FOR LOCALITY_1</label>
+    </customValue>
+    <customValue>
+        <fullName>311</fullName>
+        <default>false</default>
+        <label>TOO MANY CANDIDATES FOR THE STREET</label>
+    </customValue>
+    <customValue>
+        <fullName>313</fullName>
+        <default>false</default>
+        <label>TOO MANY CIVIC NUMBER RANGE</label>
+    </customValue>
+    <customValue>
+        <fullName>314</fullName>
+        <default>false</default>
+        <label>TOO MANY CIVIC NUMBER_RANGE</label>
+    </customValue>
+    <customValue>
+        <fullName>316</fullName>
+        <default>false</default>
+        <label>TOO MANY EXTRA URBAN</label>
+    </customValue>
+    <customValue>
+        <fullName>106</fullName>
+        <default>false</default>
+        <label>TOO MANY FIELDS IN INPUT VALUED</label>
+    </customValue>
+    <customValue>
+        <fullName>110</fullName>
+        <default>false</default>
+        <label>TOO MANY FIELDS WITH ACADEMIC DEGREES  VALUED</label>
+    </customValue>
+    <customValue>
+        <fullName>315</fullName>
+        <default>false</default>
+        <label>TOO MANY HOUSE NUMBER</label>
+    </customValue>
+    <customValue>
+        <fullName>622</fullName>
+        <default>false</default>
+        <label>TOO MANY INDIVIDUALS FOR INDIVIDUAL COMPANY</label>
+    </customValue>
+    <customValue>
+        <fullName>712</fullName>
+        <default>false</default>
+        <label>TOO MANY LESS WORDS</label>
+    </customValue>
+    <customValue>
+        <fullName>462</fullName>
+        <default>false</default>
+        <label>TOO MANY MCZ ARC</label>
+    </customValue>
+    <customValue>
+        <fullName>108</fullName>
+        <default>false</default>
+        <label>TOO MANY NAME</label>
+    </customValue>
+    <customValue>
+        <fullName>107</fullName>
+        <default>false</default>
+        <label>TOO MANY NUMBERS</label>
+    </customValue>
+    <customValue>
+        <fullName>109</fullName>
+        <default>false</default>
+        <label>TOO MANY SPECIFIC LEGAL</label>
+    </customValue>
+    <customValue>
+        <fullName>333</fullName>
+        <default>false</default>
+        <label>TWO CARE OF</label>
+    </customValue>
+    <customValue>
+        <fullName>822</fullName>
+        <default>false</default>
+        <label>TWO DISTRICT EQUALS</label>
+    </customValue>
+    <customValue>
+        <fullName>322</fullName>
+        <default>false</default>
+        <label>TWO THOROUGHFARE (DUG)</label>
+    </customValue>
+    <customValue>
+        <fullName>484</fullName>
+        <default>false</default>
+        <label>TYPE CATEGORY INVALID</label>
+    </customValue>
+    <customValue>
+        <fullName>491</fullName>
+        <default>false</default>
+        <label>TYPE CODE NOT FOUND</label>
+    </customValue>
+    <customValue>
+        <fullName>486</fullName>
+        <default>false</default>
+        <label>TYPE SUB CATEGORY INVALID</label>
+    </customValue>
+    <customValue>
+        <fullName>487</fullName>
+        <default>false</default>
+        <label>UNABLE TO GRANT ATTRIBUTE QUALITY</label>
+    </customValue>
+    <customValue>
+        <fullName>488</fullName>
+        <default>false</default>
+        <label>UNABLE TO GRANT ATTRIBUTE QUALITY_1</label>
+    </customValue>
+    <customValue>
+        <fullName>489</fullName>
+        <default>false</default>
+        <label>UNABLE TO GRANT ATTRIBUTE QUALITY_2</label>
+    </customValue>
+    <customValue>
+        <fullName>457</fullName>
+        <default>false</default>
+        <label>UNIT OF MEASURE NOT PROVIDED</label>
+    </customValue>
+    <customValue>
+        <fullName>815</fullName>
+        <default>false</default>
+        <label>VALID POSTAL CODE NON-SPECIFIC</label>
+    </customValue>
+    <customValue>
+        <fullName>447</fullName>
+        <default>false</default>
+        <label>VAT NUMBER IN TAX CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>440</fullName>
+        <default>false</default>
+        <label>VAT NUMBER MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>438</fullName>
+        <default>false</default>
+        <label>VAT NUMBER WRONG</label>
+    </customValue>
+    <customValue>
+        <fullName>964</fullName>
+        <default>false</default>
+        <label>WITH EXPONENT = SNC APPROXIMATED TO NEAREST MEDIAN CIVIC (SAME SIDE)</label>
+    </customValue>
+    <customValue>
+        <fullName>965</fullName>
+        <default>false</default>
+        <label>WITH EXPONENT = SNC APPROXIMATED TO NEAREST MEDIAN CIVIC DIFFERENT SIDE)</label>
+    </customValue>
+    <customValue>
+        <fullName>962</fullName>
+        <default>false</default>
+        <label>WITH EXPONENT = SNC APPROXIMATED TO THE CENTER ROAD</label>
+    </customValue>
+    <customValue>
+        <fullName>963</fullName>
+        <default>false</default>
+        <label>WITH EXPONENT = SNC APPROXIMATED TO THE CIVIC MEDIANO CALCULATED</label>
+    </customValue>
+    <customValue>
+        <fullName>607</fullName>
+        <default>false</default>
+        <label>WRONG ACADEMIC TITLE</label>
+    </customValue>
+    <customValue>
+        <fullName>418</fullName>
+        <default>false</default>
+        <label>WRONG CHECK</label>
+    </customValue>
+    <customValue>
+        <fullName>403</fullName>
+        <default>false</default>
+        <label>WRONG CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>406</fullName>
+        <default>false</default>
+        <label>WRONG DATE OF BIRTH</label>
+    </customValue>
+    <customValue>
+        <fullName>431</fullName>
+        <default>false</default>
+        <label>WRONG DAY OF BIRTH</label>
+    </customValue>
+    <customValue>
+        <fullName>443</fullName>
+        <default>false</default>
+        <label>WRONG E-MAIL</label>
+    </customValue>
+    <customValue>
+        <fullName>402</fullName>
+        <default>false</default>
+        <label>WRONG FORMAT</label>
+    </customValue>
+    <customValue>
+        <fullName>728</fullName>
+        <default>false</default>
+        <label>WRONG LOCALITY_1</label>
+    </customValue>
+    <customValue>
+        <fullName>729</fullName>
+        <default>false</default>
+        <label>WRONG LOCALITY_2</label>
+    </customValue>
+    <customValue>
+        <fullName>730</fullName>
+        <default>false</default>
+        <label>WRONG LOCALITY_3</label>
+    </customValue>
+    <customValue>
+        <fullName>731</fullName>
+        <default>false</default>
+        <label>WRONG LOCALITY_4</label>
+    </customValue>
+    <customValue>
+        <fullName>732</fullName>
+        <default>false</default>
+        <label>WRONG LOCALITY_5</label>
+    </customValue>
+    <customValue>
+        <fullName>432</fullName>
+        <default>false</default>
+        <label>WRONG LOCATION OF BIRTH</label>
+    </customValue>
+    <customValue>
+        <fullName>430</fullName>
+        <default>false</default>
+        <label>WRONG MONTH OF BIRTH</label>
+    </customValue>
+    <customValue>
+        <fullName>113</fullName>
+        <default>false</default>
+        <label>WRONG NAME PLACED</label>
+    </customValue>
+    <customValue>
+        <fullName>421</fullName>
+        <default>false</default>
+        <label>WRONG PLACE OF BIRTH</label>
+    </customValue>
+    <customValue>
+        <fullName>603</fullName>
+        <default>false</default>
+        <label>WRONG SEX</label>
+    </customValue>
+    <customValue>
+        <fullName>605</fullName>
+        <default>false</default>
+        <label>WRONG_SEX</label>
+    </customValue>
+    <customValue>
+        <fullName>833</fullName>
+        <default>false</default>
+        <label>WRONG STREET_1</label>
+    </customValue>
+    <customValue>
+        <fullName>834</fullName>
+        <default>false</default>
+        <label>WRONG STREET_2</label>
+    </customValue>
+    <customValue>
+        <fullName>835</fullName>
+        <default>false</default>
+        <label>WRONG STREET_3</label>
+    </customValue>
+    <customValue>
+        <fullName>836</fullName>
+        <default>false</default>
+        <label>WRONG STREET_4</label>
+    </customValue>
+    <customValue>
+        <fullName>903</fullName>
+        <default>false</default>
+        <label>WRONG TAX CODE</label>
+    </customValue>
+    <customValue>
+        <fullName>439</fullName>
+        <default>false</default>
+        <label>WRONG VAT NUMBER_1</label>
+    </customValue>
+    <customValue>
+        <fullName>448</fullName>
+        <default>false</default>
+        <label>WRONG VAT NUMBER_2</label>
+    </customValue>
+    <customValue>
+        <fullName>450</fullName>
+        <default>false</default>
+        <label>WRONG VAT NUMBER_3</label>
+    </customValue>
+    <customValue>
+        <fullName>429</fullName>
+        <default>false</default>
+        <label>WRONG YEAR OF BIRTH</label>
+    </customValue>
+    <customValue>
+        <fullName>482</fullName>
+        <default>false</default>
+        <label>XY LOCATION TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>463</fullName>
+        <default>false</default>
+        <label>ZIP MISSING</label>
+    </customValue>
+    <customValue>
+        <fullName>932</fullName>
+        <default>false</default>
+        <label>ZIP MISSING, MICRO-ZONE MULTICAP</label>
+    </customValue>
+    <customValue>
+        <fullName>473</fullName>
+        <default>false</default>
+        <label>ZIP MISSING, MULTICAP TELEATLAS</label>
+    </customValue>
+    <customValue>
+        <fullName>936</fullName>
+        <default>false</default>
+        <label>ZIP MISSING, TELEATLAS MULTICAP</label>
+    </customValue>
+    <description>https://capriholdings.atlassian.net/browse/PHXGV-195</description>
+    <masterLabel>Norm Warning</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

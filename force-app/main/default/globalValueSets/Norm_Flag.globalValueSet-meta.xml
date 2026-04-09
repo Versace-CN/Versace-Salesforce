@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>225540002</fullName>
+        <default>false</default>
+        <label>error</label>
+    </customValue>
+    <customValue>
+        <fullName>225540001</fullName>
+        <default>false</default>
+        <label>fixed</label>
+    </customValue>
+    <customValue>
+        <fullName>225540000</fullName>
+        <default>false</default>
+        <label>ok</label>
+    </customValue>
+    <customValue>
+        <fullName>225540003</fullName>
+        <default>false</default>
+        <label>serious error</label>
+    </customValue>
+    <masterLabel>Norm Flag</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
