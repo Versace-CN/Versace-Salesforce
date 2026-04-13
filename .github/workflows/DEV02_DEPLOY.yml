@@ -309,13 +309,12 @@ jobs:
         sf --version
  
     # 步骤4：登录Salesforce
-     - name: 🔐 登录Salesforce
+    - name: 🔐 登录Salesforce
       run: |
-        # 登录到Salesforce
         echo "登录到dev02环境..."
         echo '${{ secrets.SFDX_DEV02_ORG_AUTH }}' > ./SFDX_ORG_AUTH.json
         sf org login sfdx-url --sfdx-url-file ./SFDX_ORG_AUTH.json --set-default
- 
+
         echo "✅ 认证成功"
  
     # 步骤5：执行实际部署
