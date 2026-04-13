@@ -7,7 +7,7 @@ name: Salesforce Dev02 Environment Deployment
 on:
   push:
     branches:
-      - test
+      - developer
     # 只监控相关的文件变化
     paths:
       - 'manifest/package.xml'
@@ -19,12 +19,6 @@ env:
   # 基础路径配置
   MANIFEST_DIR: 'manifest'
   PACKAGE_FILE: 'manifest/package.xml'
- 
-  # Salesforce开发环境配置（dev02环境）
-  SALESFORCE_USERNAME: ${{ secrets.DEV02_SALESFORCE_USERNAME }}
-  SALESFORCE_CLIENT_ID: ${{ secrets.DEV02_SALESFORCE_CLIENT_ID }}
-  SALESFORCE_SERVER_KEY: ${{ secrets.DEV02_SALESFORCE_SERVER_KEY }}
-  SALESFORCE_LOGIN_URL: ${{ secrets.DEV02_SALESFORCE_LOGIN_URL }}
  
   # 组织别名
   ORG_ALIAS: 'dev02-org'
@@ -179,43 +173,6 @@ jobs:
         echo "test-level=$DEV02_TEST_LEVEL" >> $GITHUB_OUTPUT
         echo "test-classes=$CLEANED_TEST_CLASSES" >> $GITHUB_OUTPUT
         echo "should-run-tests=$SHOULD_RUN_TESTS" >> $GITHUB_OUTPUT
- 
-    # 步骤5：验证Secrets配置
-    - name: 🔐 验证环境配置
-      run: |
-        echo "验证开发环境Secrets配置..."
- 
-        # 检查必要Secrets
-        MISSING_SECRETS=()
- 
-        if [ -z "${{ env.SALESFORCE_USERNAME }}" ]; then
-          MISSING_SECRETS+=("DEV02_SALESFORCE_USERNAME")
-        fi
- 
-        if [ -z "${{ env.SALESFORCE_CLIENT_ID }}" ]; then
-          MISSING_SECRETS+=("DEV02_SALESFORCE_CLIENT_ID")
-        fi
- 
-        if [ -z "${{ env.SALESFORCE_SERVER_KEY }}" ]; then
-          MISSING_SECRETS+=("DEV02_SALESFORCE_SERVER_KEY")
-        fi
- 
-        if [ -z "${{ env.SALESFORCE_LOGIN_URL }}" ]; then
-          MISSING_SECRETS+=("DEV02_SALESFORCE_LOGIN_URL")
-        fi
- 
-        if [ ${#MISSING_SECRETS[@]} -gt 0 ]; then
-          echo "❌ 缺少必要的Secrets配置:"
-          for SECRET in "${MISSING_SECRETS[@]}"; do
-            echo "  - $SECRET"
-          done
-          echo ""
-          echo "请在GitHub仓库中配置:"
-          echo "Settings → Secrets and variables → Actions → Secrets"
-          exit 1
-        fi
- 
-        echo "✅ 所有必要的Secrets已配置"
 
   # 第二阶段：环境配置与验证
   configure-and-validate:
@@ -247,30 +204,13 @@ jobs:
         sf --version
         sf plugins install @salesforce/plugin-packaging @salesforce/plugin-source --force
  
-    # 步骤4：配置JWT认证
-    - name: 🔐 配置JWT认证
+    # 步骤4：登录Salesforce
+    - name: 🔐 登录Salesforce
       run: |
-        echo "配置Salesforce JWT认证..."
- 
-        # 创建私钥文件
-        mkdir -p .jwt
-        echo "${{ env.SALESFORCE_SERVER_KEY }}" | sed 's/\\n/\n/g' > .jwt/server.key
- 
-        # 验证私钥格式
-        if [ ! -s ".jwt/server.key" ] || ! grep -q "BEGIN PRIVATE KEY" .jwt/server.key; then
-          echo "❌ 错误: JWT私钥格式不正确"
-          exit 1
-        fi
- 
         # 登录到Salesforce
         echo "登录到dev02环境..."
-        sf org login jwt \
-          --username "${{ env.SALESFORCE_USERNAME }}" \
-          --client-id "${{ env.SALESFORCE_CLIENT_ID }}" \
-          --jwt-key-file .jwt/server.key \
-          --instance-url "${{ env.SALESFORCE_LOGIN_URL }}" \
-          --alias "${{ env.ORG_ALIAS }}" \
-          --set-default
+        echo '${{ secrets.SFDX_DEV02_ORG_AUTH }}' > ./SFDX_ORG_AUTH.json
+        sf org login sfdx-url --sfdx-url-file ./SFDX_ORG_AUTH.json --set-default
  
         echo "✅ 认证成功"
  
@@ -368,20 +308,13 @@ jobs:
         npm install -g @salesforce/cli
         sf --version
  
-    # 步骤4：配置JWT认证
-    - name: 🔐 配置JWT认证
+    # 步骤4：登录Salesforce
+     - name: 🔐 登录Salesforce
       run: |
-        echo "配置JWT认证..."
-        mkdir -p .jwt
-        echo "${{ env.SALESFORCE_SERVER_KEY }}" | sed 's/\\n/\n/g' > .jwt/server.key
- 
-        sf org login jwt \
-          --username "${{ env.SALESFORCE_USERNAME }}" \
-          --client-id "${{ env.SALESFORCE_CLIENT_ID }}" \
-          --jwt-key-file .jwt/server.key \
-          --instance-url "${{ env.SALESFORCE_LOGIN_URL }}" \
-          --alias "${{ env.ORG_ALIAS }}" \
-          --set-default
+        # 登录到Salesforce
+        echo "登录到dev02环境..."
+        echo '${{ secrets.SFDX_DEV02_ORG_AUTH }}' > ./SFDX_ORG_AUTH.json
+        sf org login sfdx-url --sfdx-url-file ./SFDX_ORG_AUTH.json --set-default
  
         echo "✅ 认证成功"
  
