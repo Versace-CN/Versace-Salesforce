@@ -193,8 +193,7 @@ jobs:
     - name: ⚙️ 设置Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
-        cache: 'npm'
+        node-version: 'latest'
  
     # 步骤3：安装Salesforce CLI
     - name: 📦 安装Salesforce CLI
@@ -231,17 +230,10 @@ jobs:
         fi
  
         # 构建验证命令
-        VALIDATE_CMD="sf project deploy validate"
-        VALIDATE_CMD="$VALIDATE_CMD --manifest ${{ needs.prepare-deployment.outputs.package-file-path }}"
-        VALIDATE_CMD="$VALIDATE_CMD --target-org ${{ env.ORG_ALIAS }}"
-        VALIDATE_CMD="$VALIDATE_CMD --test-level $TEST_LEVEL"
-        VALIDATE_CMD="$VALIDATE_CMD --wait 20"
-        VALIDATE_CMD="$VALIDATE_CMD --verbose"
+        VALIDATE_CMD="sf project deploy start --concise -w 60 --dry-run --manifest ${{ needs.prepare-deployment.outputs.package-file-path }} --test-level $TEST_LEVEL"
  
         # 如果是指定测试类，添加到命令
         if [ "$TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$TEST_CLASSES" ]; then
-          # 将空格分隔转换为逗号分隔
-          COMMA_SEPARATED_CLASSES=$(echo "$TEST_CLASSES" | tr ' ' ',')
           VALIDATE_CMD="$VALIDATE_CMD --tests $COMMA_SEPARATED_CLASSES"
           echo "转换后测试类: $COMMA_SEPARATED_CLASSES"
         fi
@@ -300,13 +292,15 @@ jobs:
     - name: ⚙️ 设置Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: 'latest'
  
     # 步骤3：安装Salesforce CLI
     - name: 📦 安装Salesforce CLI
       run: |
+        echo "安装Salesforce CLI..."
         npm install -g @salesforce/cli
         sf --version
+        sf plugins install @salesforce/plugin-packaging @salesforce/plugin-source --force
  
     # 步骤4：登录Salesforce
     - name: 🔐 登录Salesforce
