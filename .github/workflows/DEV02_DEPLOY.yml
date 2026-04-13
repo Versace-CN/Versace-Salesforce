@@ -237,8 +237,8 @@ jobs:
         # 执行验证
         RESULT=$($VALIDATE_CMD)
         echo "$RESULT"
-        STATUS=(echo "$RESULT" | jq -r '.status')
-        if [ "$STATUS" != 0]; then
+        STATUS=$(echo "$RESULT" | jq -r '.status')
+        if [ "$STATUS" != "0"]; then
           # 验证失败
           END_TIME=$(date +%s)
           DURATION=$((END_TIME - START_TIME))
@@ -258,9 +258,9 @@ jobs:
           DEPLOY_ID=$(echo "$RESULT" | jq -r '.result.id')
           
           # 验证deploy ID
-          if [ -z "$DEPLOY_ID" ] || [ "$DEPLOY_ID" == "null" ]; then
+          if [ -z "$DEPLOY_ID" ] || [ "$DEPLOY_ID" = "null" ]; then
             echo "❌ 错误: 未能从响应中提取有效的部署 ID"
-            echo "JSON 响应内容:"
+            echo "JSON 响应内容:$RESULT"
             exit 1
             fi
 
