@@ -230,7 +230,7 @@ jobs:
         fi
  
         # 构建验证命令
-        VALIDATE_CMD="sf project deploy start --concise -w 60 --dry-run --manifest ${{ needs.prepare-deployment.outputs.package-file-path }} --verbose --ignore-warnings --test-level $TEST_LEVEL"
+        VALIDATE_CMD="sf project deploy start --concise -w 60 --dry-run --manifest ${{ needs.prepare-deployment.outputs.package-file-path }} --test-level $TEST_LEVEL"
  
         # 如果是指定测试类，添加到命令
         if [ "$TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$TEST_CLASSES" ]; then
