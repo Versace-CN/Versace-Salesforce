@@ -1,23 +1,39 @@
-# Unique name for this workflow
-name: Deploy changed sources to org
+# Salesforce 开发环境自动化部署工作流（developer分支 → dev02环境）
+name: Salesforce Dev02 Environment Deployment
 
-# Definition when the workflow should run
+# 触发器配置：当代码推送到developer分支时触发
 on:
   push:
-    branches: [ SIT, UAT, PreProd, main ]
+    branches:
+      - developer
+    # 只监控相关的文件变化
     paths:
+      - 'manifest/package.xml'
       - 'force-app/**'
+      - '.github/workflows/**'
 
 
-# Jobs to be executed
+  # 环境变量配置
+env:
+  # 基础路径配置
+  MANIFEST_DIR: 'manifest'
+  PACKAGE_FILE: 'manifest/package.xml'
+
+# 组织别名
+  ORG_ALIAS: 'dev02-org'
+ 
+  # 环境标识
+  ENVIRONMENT_NAME: 'dev02'
+  BRANCH_NAME: 'developer'
+
+
+# 工作流任务定义
 jobs:
-  deploy-changed-sources-to-org:
-    name: Deploy changed sources to org
-    runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    permissions:
-      contents: read
-      pull-requests: read
+  # 第一阶段：部署准备与配置加载
+  prepare-deployment:
+    name: 1. 部署准备与配置
+    runs-on: ubuntu-latest  
+
     steps:
       # Install node.js in the VM, and specify version 20
       - name: 'Setup node.js version'
@@ -44,22 +60,87 @@ jobs:
                   repo: context.repo.repo,
                 })
               ).data;
-      
-      # Parse test classes to run
-      - name: 'Parse test classes to run from Pull Request description'
-        if: ${{ fromJson(steps.get_pr_data.outputs.result)[0] }}
-        env:
-          PR_BODY: ${{ fromJson(steps.get_pr_data.outputs.result)[0].body }}
-        run: |
-          echo Pull Request number: ${{ fromJson(steps.get_pr_data.outputs.result)[0].number }}
-          echo Pull Request title: ${{ fromJson(steps.get_pr_data.outputs.result)[0].title }}
-          echo Pull Request description: $PR_BODY
-          echo $PR_BODY > ./cicd/pr_body.txt
-          node ./cicd/parsePR.js
-          testsToRun=$(cat ./cicd/testsToRun.txt)
-          echo Tests to run: $testsToRun
-          echo "apexTestsToRun=$testsToRun" >> $GITHUB_ENV
 
+        # 步骤4：加载测试配置（仅DEV02_TEST_CLASSES和DEV02_TEST_LEVEL）
+      - name: ⚙️ 加载测试配置
+        id: load-test-config
+        run: |
+          echo "加载开发环境测试配置..."
+   
+          # 从GitHub Variables获取配置
+          DEV02_TEST_CLASSES="${{ vars.DEV02_TEST_CLASSES || '' }}"
+          DEV02_TEST_LEVEL="${{ vars.DEV02_TEST_LEVEL || 'NoTestRun' }}"
+   
+          echo "📋 原始配置:"
+          echo "- DEV02_TEST_CLASSES: '$DEV02_TEST_CLASSES'"
+          echo "- DEV02_TEST_LEVEL: '$DEV02_TEST_LEVEL'"
+   
+          # 清理和验证TEST_CLASSES（空格分隔）
+          # 去除首尾空格，将多个空格合并为一个空格
+          CLEANED_TEST_CLASSES=$(echo "$DEV02_TEST_CLASSES" | xargs)
+   
+          # 验证TEST_LEVEL有效性
+          VALID_TEST_LEVELS=("NoTestRun" "RunSpecifiedTests" "RunLocalTests")
+          VALID_LEVEL=false
+   
+          for LEVEL in "${VALID_TEST_LEVELS[@]}"; do
+            if [ "$DEV02_TEST_LEVEL" = "$LEVEL" ]; then
+              VALID_LEVEL=true
+              break
+            fi
+          done
+   
+          if [ "$VALID_LEVEL" = false ]; then
+            echo "❌ 错误: DEV02_TEST_LEVEL值无效"
+            echo "有效值: NoTestRun, RunSpecifiedTests, RunLocalTests"
+            echo "当前值: $DEV02_TEST_LEVEL"
+            exit 1
+          fi
+   
+          # 确定是否执行测试
+          SHOULD_RUN_TESTS="false"
+          if [ "$DEV02_TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$CLEANED_TEST_CLASSES" ]; then
+            SHOULD_RUN_TESTS="true"
+            echo "✅ 将执行指定测试类"
+          elif [ "$DEV02_TEST_LEVEL" = "RunLocalTests" ]; then
+            SHOULD_RUN_TESTS="true"
+            echo "✅ 将执行所有本地测试"
+          else
+            echo "ℹ️  不执行测试 (TEST_LEVEL: $DEV02_TEST_LEVEL)"
+          fi
+   
+          # 验证测试类格式（如果配置了RunSpecifiedTests）
+          if [ "$DEV02_TEST_LEVEL" = "RunSpecifiedTests" ]; then
+            if [ -z "$CLEANED_TEST_CLASSES" ]; then
+              echo "❌ 错误: TEST_LEVEL为RunSpecifiedTests但未指定测试类"
+              echo "请在DEV02_TEST_CLASSES中指定测试类（空格分隔）"
+              exit 1
+            fi
+   
+            # 检查测试类格式（只能包含字母、数字、下划线）
+            for TEST_CLASS in $CLEANED_TEST_CLASSES; do
+              if ! [[ "$TEST_CLASS" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+                echo "❌ 错误: 测试类名格式无效: $TEST_CLASS"
+                echo "测试类名只能包含字母、数字、下划线，且不能以数字开头"
+                exit 1
+              fi
+            done
+   
+            echo "✅ 测试类格式验证通过"
+            echo "测试类列表: $CLEANED_TEST_CLASSES"
+          fi
+   
+          # 输出结果
+          echo "📋 最终测试配置:"
+          echo "- 测试级别: $DEV02_TEST_LEVEL"
+          echo "- 测试类: $CLEANED_TEST_CLASSES"
+          echo "- 是否执行测试: $SHOULD_RUN_TESTS"
+   
+          # 设置输出变量
+          echo "test-level=$DEV02_TEST_LEVEL" >> $GITHUB_OUTPUT
+          echo "test-classes=$CLEANED_TEST_CLASSES" >> $GITHUB_OUTPUT
+          echo "should-run-tests=$SHOULD_RUN_TESTS" >> $GITHUB_OUTPUT
+    
       # Install Salesforce CLI
       - name: 'Install Salesforce CLI'
         run: |
@@ -70,29 +151,10 @@ jobs:
           ~/cli/sf/bin/sf version
 
       # Store auth file for org
-      - name: 'Populate auth file(SIT)'
-        if: ${{ github.ref_name == 'SIT' }}
+      - name: 'Populate auth file(DEV02)'
         shell: bash
         run: |
           echo '${{ secrets.SFDX_SIT_ORG_AUTH }}' > ./SFDX_ORG_AUTH.json
-
-      - name: 'Populate auth file(UAT)'
-        if: ${{ github.ref_name == 'UAT' }}
-        shell: bash
-        run: |
-          echo '${{ secrets.SFDX_UAT_ORG_AUTH }}' > ./SFDX_ORG_AUTH.json
-
-      - name: 'Populate auth file(PreProd)'
-        if: ${{ github.ref_name == 'PreProd' }}
-        shell: bash
-        run: |
-          echo '${{ secrets.SFDX_PreProd_ORG_AUTH }}' > ./SFDX_ORG_AUTH.json
-
-      - name: 'Populate auth file(Production)'
-        if: ${{ github.ref_name == 'main' }}
-        shell: bash
-        run: |
-          echo '${{ secrets.SFDX_Prod_ORG_AUTH }}' > ./SFDX_ORG_AUTH.json
 
       # Authenticate to org
       - name: 'Authenticate to org'
