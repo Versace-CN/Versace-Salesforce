@@ -193,8 +193,7 @@ jobs:
     - name: ⚙️ 设置Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
-        cache: 'npm'
+        node-version: 'latest'
  
     # 步骤3：安装Salesforce CLI
     - name: 📦 安装Salesforce CLI
@@ -300,13 +299,15 @@ jobs:
     - name: ⚙️ 设置Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: 'latest'
  
     # 步骤3：安装Salesforce CLI
     - name: 📦 安装Salesforce CLI
       run: |
+        echo "安装Salesforce CLI..."
         npm install -g @salesforce/cli
         sf --version
+        sf plugins install @salesforce/plugin-packaging @salesforce/plugin-source --force
  
     # 步骤4：登录Salesforce
     - name: 🔐 登录Salesforce
