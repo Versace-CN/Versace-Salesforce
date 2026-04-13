@@ -235,43 +235,36 @@ jobs:
         START_TIME=$(date +%s)
  
         # 执行验证
-        if eval $VALIDATE_CMD; then
-          END_TIME=$(date +%s)
-          DURATION=$((END_TIME - START_TIME))
- 
-          echo "✅ 验证成功 (耗时: ${DURATION}秒)"
-          echo "validation-result=success" >> $GITHUB_OUTPUT
-          echo "validation-duration=${DURATION}" >> $GITHUB_OUTPUT
-          # 提取 deploy ID（使用 jq 或 grep/sed 解析 JSON）
-          if command -v jq &> /dev/null; then
-            DEPLOY_ID=$(cat "$VALIDATE_OUTPUT" | jq -r '.result.id // .id // empty')
-          else
-            DEPLOY_ID=$(cat "$VALIDATE_OUTPUT" | grep -o '"id"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"id"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
-          fi
-    
-          # 验证并保存 deploy ID
-          if [ -n "$DEPLOY_ID" ] && [ "$DEPLOY_ID" != "null" ]; then
-            echo "✅ 获取到部署 ID: $DEPLOY_ID"
-            # 保存到步骤输出（当前步骤内引用）
-            echo "deploy-id=$DEPLOY_ID" >> $GITHUB_OUTPUT
-            # 保存到环境变量（跨步骤共享）
-            echo "DEPLOY_ID=$DEPLOY_ID" >> $GITHUB_ENV
-          else
-            echo "❌ 错误: 未能从响应中提取有效的部署 ID"
-            echo "JSON 响应内容:"
-            cat "$VALIDATE_OUTPUT"
-            rm -f "$VALIDATE_OUTPUT"
-            exit 1
-          fi
-          
-        else
+        RESULT=$($VALIDATE_CMD)
+        echo "$RESULT"
+        STATUS=(echo "$RESULT" | jq -r '.status')
+        if [ "$STATUS" != 0]; then
+          # 验证失败
           END_TIME=$(date +%s)
           DURATION=$((END_TIME - START_TIME))
  
           echo "❌ 验证失败 (耗时: ${DURATION}秒)"
           echo "validation-result=failed" >> $GITHUB_OUTPUT
           exit 1
-        fi
+          fi
+          
+          # 验证成功
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+ 
+          echo "✅ 验证成功 (耗时: ${DURATION}秒)"
+          
+          # 提取 deploy ID
+          DEPLOY_ID=$(echo "$RESULT" | jq -r '.result.id')
+          
+          # 验证deploy ID
+          if [ -z "$DEPLOY_ID" ] || [ "$DEPLOY_ID" == "null" ]; then
+            echo "❌ 错误: 未能从响应中提取有效的部署 ID"
+            echo "JSON 响应内容:"
+            exit 1
+            fi
+
+            echo "✅ 获取到部署 ID: $DEPLOY_ID"
 
     # 步骤6：实际部署
     - name: 🚀 执行实际部署
@@ -289,18 +282,13 @@ jobs:
         # 构建快速部署命令
         QUICK_DEPLOY_CMD="sf project deploy quick -i $DEPLOY_ID -o ${{ vars.SF_DEV02_USERNAME }} --json"
 
-        if eval $QUICK_DEPLOY_CMD > "$DEPLOY_OUTPUT" 2>&1; then
+        if eval $QUICK_DEPLOY_CMD; then
           echo "✅ 快速部署成功完成"
           cat "$DEPLOY_OUTPUT" | jq '.' 2>/dev/null || cat "$DEPLOY_OUTPUT"
         else
           echo "❌ 快速部署失败"
-          echo "错误详情:"
-          cat "$DEPLOY_OUTPUT" | jq '.' 2>/dev/null || cat "$DEPLOY_OUTPUT"
-          rm -f "$DEPLOY_OUTPUT"
           exit 1
           fi
-      
-        rm -f "$DEPLOY_OUTPUT"
  
     # 步骤7：清理临时文件
     - name: 🧹 清理临时文件
