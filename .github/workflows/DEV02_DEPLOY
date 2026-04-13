@@ -1,0 +1,449 @@
+# Salesforce 开发环境自动化部署工作流（developer分支 → dev02环境）
+# 精简配置版：只使用DEV02_TEST_CLASSES和DEV02_TEST_LEVEL
+
+name: Salesforce Dev02 Environment Deployment
+
+# 触发器配置：当代码推送到developer分支时触发
+on:
+  push:
+    branches:
+      - test
+    # 只监控相关的文件变化
+    paths:
+      - 'manifest/package.xml'
+      - 'force-app/**'
+      - '.github/workflows/**'
+
+# 环境变量配置
+env:
+  # 基础路径配置
+  MANIFEST_DIR: 'manifest'
+  PACKAGE_FILE: 'manifest/package.xml'
+ 
+  # Salesforce开发环境配置（dev02环境）
+  SALESFORCE_USERNAME: ${{ secrets.DEV02_SALESFORCE_USERNAME }}
+  SALESFORCE_CLIENT_ID: ${{ secrets.DEV02_SALESFORCE_CLIENT_ID }}
+  SALESFORCE_SERVER_KEY: ${{ secrets.DEV02_SALESFORCE_SERVER_KEY }}
+  SALESFORCE_LOGIN_URL: ${{ secrets.DEV02_SALESFORCE_LOGIN_URL }}
+ 
+  # 组织别名
+  ORG_ALIAS: 'dev02-org'
+ 
+  # 环境标识
+  ENVIRONMENT_NAME: 'dev02'
+  BRANCH_NAME: 'developer'
+
+# 工作流任务定义
+jobs:
+ 
+  # 第一阶段：部署准备与配置加载
+  prepare-deployment:
+    name: 1. 部署准备与配置
+    runs-on: ubuntu-latest
+ 
+    # 输出变量
+    outputs:
+      has-valid-package: ${{ steps.check-package.outputs.has-valid-package }}
+      package-file-path: ${{ steps.check-package.outputs.package-file-path }}
+      test-classes: ${{ steps.load-test-config.outputs.test-classes }}
+      test-level: ${{ steps.load-test-config.outputs.test-level }}
+      should-run-tests: ${{ steps.load-test-config.outputs.should-run-tests }}
+ 
+    steps:
+ 
+    # 步骤1：检出代码
+    - name: 🔍 检出代码
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: ${{ github.ref }}
+ 
+    # 步骤2：显示环境信息
+    - name: 🌐 环境信息
+      run: |
+        echo "=== 开发环境部署 ==="
+        echo "分支: developer"
+        echo "环境: dev02"
+        echo "目标组织: dev02-org"
+        echo "==================="
+ 
+    # 步骤3：检查package.xml文件
+    - name: 📦 检查部署清单
+      id: check-package
+      run: |
+        echo "检查package.xml部署清单..."
+ 
+        # 基本文件检查
+        if [ ! -f "${{ env.PACKAGE_FILE }}" ]; then
+          echo "❌ 错误: package.xml文件不存在"
+          echo "has-valid-package=false" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+ 
+        # 检查文件内容
+        if ! grep -q "<Package" "${{ env.PACKAGE_FILE }}" || [ ! -s "${{ env.PACKAGE_FILE }}" ]; then
+          echo "❌ 错误: package.xml格式不正确或为空"
+          echo "has-valid-package=false" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+ 
+        # 统计组件数量
+        COMPONENT_COUNT=$(grep -c "<members>" "${{ env.PACKAGE_FILE }}" || echo "0")
+        if [ "$COMPONENT_COUNT" -eq 0 ]; then
+          echo "❌ 错误: package.xml中没有部署组件"
+          echo "has-valid-package=false" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+ 
+        echo "✅ package.xml检查通过"
+        echo "📦 部署组件: $COMPONENT_COUNT 个"
+        echo "has-valid-package=true" >> $GITHUB_OUTPUT
+        echo "package-file-path=${{ env.PACKAGE_FILE }}" >> $GITHUB_OUTPUT
+ 
+    # 步骤4：加载测试配置（仅DEV02_TEST_CLASSES和DEV02_TEST_LEVEL）
+    - name: ⚙️ 加载测试配置
+      id: load-test-config
+      run: |
+        echo "加载开发环境测试配置..."
+ 
+        # 从GitHub Variables获取配置
+        DEV02_TEST_CLASSES="${{ vars.DEV02_TEST_CLASSES || '' }}"
+        DEV02_TEST_LEVEL="${{ vars.DEV02_TEST_LEVEL || 'NoTestRun' }}"
+ 
+        echo "📋 原始配置:"
+        echo "- DEV02_TEST_CLASSES: '$DEV02_TEST_CLASSES'"
+        echo "- DEV02_TEST_LEVEL: '$DEV02_TEST_LEVEL'"
+ 
+        # 清理和验证TEST_CLASSES（空格分隔）
+        # 去除首尾空格，将多个空格合并为一个空格
+        CLEANED_TEST_CLASSES=$(echo "$DEV02_TEST_CLASSES" | xargs)
+ 
+        # 验证TEST_LEVEL有效性
+        VALID_TEST_LEVELS=("NoTestRun" "RunSpecifiedTests" "RunLocalTests")
+        VALID_LEVEL=false
+ 
+        for LEVEL in "${VALID_TEST_LEVELS[@]}"; do
+          if [ "$DEV02_TEST_LEVEL" = "$LEVEL" ]; then
+            VALID_LEVEL=true
+            break
+          fi
+        done
+ 
+        if [ "$VALID_LEVEL" = false ]; then
+          echo "❌ 错误: DEV02_TEST_LEVEL值无效"
+          echo "有效值: NoTestRun, RunSpecifiedTests, RunLocalTests"
+          echo "当前值: $DEV02_TEST_LEVEL"
+          exit 1
+        fi
+ 
+        # 确定是否执行测试
+        SHOULD_RUN_TESTS="false"
+        if [ "$DEV02_TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$CLEANED_TEST_CLASSES" ]; then
+          SHOULD_RUN_TESTS="true"
+          echo "✅ 将执行指定测试类"
+        elif [ "$DEV02_TEST_LEVEL" = "RunLocalTests" ]; then
+          SHOULD_RUN_TESTS="true"
+          echo "✅ 将执行所有本地测试"
+        else
+          echo "ℹ️  不执行测试 (TEST_LEVEL: $DEV02_TEST_LEVEL)"
+        fi
+ 
+        # 验证测试类格式（如果配置了RunSpecifiedTests）
+        if [ "$DEV02_TEST_LEVEL" = "RunSpecifiedTests" ]; then
+          if [ -z "$CLEANED_TEST_CLASSES" ]; then
+            echo "❌ 错误: TEST_LEVEL为RunSpecifiedTests但未指定测试类"
+            echo "请在DEV02_TEST_CLASSES中指定测试类（空格分隔）"
+            exit 1
+          fi
+ 
+          # 检查测试类格式（只能包含字母、数字、下划线）
+          for TEST_CLASS in $CLEANED_TEST_CLASSES; do
+            if ! [[ "$TEST_CLASS" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+              echo "❌ 错误: 测试类名格式无效: $TEST_CLASS"
+              echo "测试类名只能包含字母、数字、下划线，且不能以数字开头"
+              exit 1
+            fi
+          done
+ 
+          echo "✅ 测试类格式验证通过"
+          echo "测试类列表: $CLEANED_TEST_CLASSES"
+        fi
+ 
+        # 输出结果
+        echo "📋 最终测试配置:"
+        echo "- 测试级别: $DEV02_TEST_LEVEL"
+        echo "- 测试类: $CLEANED_TEST_CLASSES"
+        echo "- 是否执行测试: $SHOULD_RUN_TESTS"
+ 
+        # 设置输出变量
+        echo "test-level=$DEV02_TEST_LEVEL" >> $GITHUB_OUTPUT
+        echo "test-classes=$CLEANED_TEST_CLASSES" >> $GITHUB_OUTPUT
+        echo "should-run-tests=$SHOULD_RUN_TESTS" >> $GITHUB_OUTPUT
+ 
+    # 步骤5：验证Secrets配置
+    - name: 🔐 验证环境配置
+      run: |
+        echo "验证开发环境Secrets配置..."
+ 
+        # 检查必要Secrets
+        MISSING_SECRETS=()
+ 
+        if [ -z "${{ env.SALESFORCE_USERNAME }}" ]; then
+          MISSING_SECRETS+=("DEV02_SALESFORCE_USERNAME")
+        fi
+ 
+        if [ -z "${{ env.SALESFORCE_CLIENT_ID }}" ]; then
+          MISSING_SECRETS+=("DEV02_SALESFORCE_CLIENT_ID")
+        fi
+ 
+        if [ -z "${{ env.SALESFORCE_SERVER_KEY }}" ]; then
+          MISSING_SECRETS+=("DEV02_SALESFORCE_SERVER_KEY")
+        fi
+ 
+        if [ -z "${{ env.SALESFORCE_LOGIN_URL }}" ]; then
+          MISSING_SECRETS+=("DEV02_SALESFORCE_LOGIN_URL")
+        fi
+ 
+        if [ ${#MISSING_SECRETS[@]} -gt 0 ]; then
+          echo "❌ 缺少必要的Secrets配置:"
+          for SECRET in "${MISSING_SECRETS[@]}"; do
+            echo "  - $SECRET"
+          done
+          echo ""
+          echo "请在GitHub仓库中配置:"
+          echo "Settings → Secrets and variables → Actions → Secrets"
+          exit 1
+        fi
+ 
+        echo "✅ 所有必要的Secrets已配置"
+
+  # 第二阶段：环境配置与验证
+  configure-and-validate:
+    name: 2. 环境配置与验证
+    runs-on: ubuntu-latest
+    needs: prepare-deployment
+ 
+    # 条件：package.xml有效
+    if: ${{ needs.prepare-deployment.outputs.has-valid-package == 'true' }}
+ 
+    steps:
+ 
+    # 步骤1：检出代码
+    - name: 🔍 检出代码
+      uses: actions/checkout@v4
+ 
+    # 步骤2：设置Node.js环境
+    - name: ⚙️ 设置Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+ 
+    # 步骤3：安装Salesforce CLI
+    - name: 📦 安装Salesforce CLI
+      run: |
+        echo "安装Salesforce CLI..."
+        npm install -g @salesforce/cli
+        sf --version
+        sf plugins install @salesforce/plugin-packaging @salesforce/plugin-source --force
+ 
+    # 步骤4：配置JWT认证
+    - name: 🔐 配置JWT认证
+      run: |
+        echo "配置Salesforce JWT认证..."
+ 
+        # 创建私钥文件
+        mkdir -p .jwt
+        echo "${{ env.SALESFORCE_SERVER_KEY }}" | sed 's/\\n/\n/g' > .jwt/server.key
+ 
+        # 验证私钥格式
+        if [ ! -s ".jwt/server.key" ] || ! grep -q "BEGIN PRIVATE KEY" .jwt/server.key; then
+          echo "❌ 错误: JWT私钥格式不正确"
+          exit 1
+        fi
+ 
+        # 登录到Salesforce
+        echo "登录到dev02环境..."
+        sf org login jwt \
+          --username "${{ env.SALESFORCE_USERNAME }}" \
+          --client-id "${{ env.SALESFORCE_CLIENT_ID }}" \
+          --jwt-key-file .jwt/server.key \
+          --instance-url "${{ env.SALESFORCE_LOGIN_URL }}" \
+          --alias "${{ env.ORG_ALIAS }}" \
+          --set-default
+ 
+        echo "✅ 认证成功"
+ 
+    # 步骤5：执行部署验证（dry-run）
+    - name: 🧪 验证部署
+      id: validate-deploy
+      run: |
+        echo "执行部署验证（dry-run）..."
+ 
+        # 获取测试配置
+        TEST_LEVEL="${{ needs.prepare-deployment.outputs.test-level }}"
+        TEST_CLASSES="${{ needs.prepare-deployment.outputs.test-classes }}"
+ 
+        echo "测试配置:"
+        echo "- 测试级别: $TEST_LEVEL"
+        if [ -n "$TEST_CLASSES" ]; then
+          echo "- 测试类: $TEST_CLASSES"
+        fi
+ 
+        # 构建验证命令
+        VALIDATE_CMD="sf project deploy validate"
+        VALIDATE_CMD="$VALIDATE_CMD --manifest ${{ needs.prepare-deployment.outputs.package-file-path }}"
+        VALIDATE_CMD="$VALIDATE_CMD --target-org ${{ env.ORG_ALIAS }}"
+        VALIDATE_CMD="$VALIDATE_CMD --test-level $TEST_LEVEL"
+        VALIDATE_CMD="$VALIDATE_CMD --wait 20"
+        VALIDATE_CMD="$VALIDATE_CMD --verbose"
+ 
+        # 如果是指定测试类，添加到命令
+        if [ "$TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$TEST_CLASSES" ]; then
+          # 将空格分隔转换为逗号分隔
+          COMMA_SEPARATED_CLASSES=$(echo "$TEST_CLASSES" | tr ' ' ',')
+          VALIDATE_CMD="$VALIDATE_CMD --tests $COMMA_SEPARATED_CLASSES"
+          echo "转换后测试类: $COMMA_SEPARATED_CLASSES"
+        fi
+ 
+        echo "执行命令: $VALIDATE_CMD"
+ 
+        # 记录开始时间
+        START_TIME=$(date +%s)
+ 
+        # 执行验证
+        if eval $VALIDATE_CMD; then
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+ 
+          echo "✅ 验证成功 (耗时: ${DURATION}秒)"
+          echo "validation-result=success" >> $GITHUB_OUTPUT
+          echo "validation-duration=${DURATION}" >> $GITHUB_OUTPUT
+        else
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+ 
+          echo "❌ 验证失败 (耗时: ${DURATION}秒)"
+          echo "validation-result=failed" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+ 
+    # 步骤6：清理临时文件
+    - name: 🧹 清理临时文件
+      if: always()
+      run: |
+        echo "清理临时文件..."
+        rm -rf .jwt 2>/dev/null || true
+        rm -f .sfdx/*.json 2>/dev/null || true
+
+  # 第三阶段：实际部署
+  execute-deployment:
+    name: 3. 实际部署
+    runs-on: ubuntu-latest
+    needs: [prepare-deployment, configure-and-validate]
+ 
+    # 条件：验证成功
+    if: |
+      needs.prepare-deployment.outputs.has-valid-package == 'true' &&
+      needs.configure-and-validate.outputs.validation-result == 'success' &&
+      github.event_name != 'pull_request'
+ 
+    steps:
+ 
+    # 步骤1：准备部署
+    - name: 🚀 准备部署
+      run: |
+        echo "准备部署到dev02环境..."
+        echo "测试级别: ${{ needs.prepare-deployment.outputs.test-level }}"
+ 
+    # 步骤2：设置Node.js
+    - name: ⚙️ 设置Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+ 
+    # 步骤3：安装Salesforce CLI
+    - name: 📦 安装Salesforce CLI
+      run: |
+        npm install -g @salesforce/cli
+        sf --version
+ 
+    # 步骤4：配置JWT认证
+    - name: 🔐 配置JWT认证
+      run: |
+        echo "配置JWT认证..."
+        mkdir -p .jwt
+        echo "${{ env.SALESFORCE_SERVER_KEY }}" | sed 's/\\n/\n/g' > .jwt/server.key
+ 
+        sf org login jwt \
+          --username "${{ env.SALESFORCE_USERNAME }}" \
+          --client-id "${{ env.SALESFORCE_CLIENT_ID }}" \
+          --jwt-key-file .jwt/server.key \
+          --instance-url "${{ env.SALESFORCE_LOGIN_URL }}" \
+          --alias "${{ env.ORG_ALIAS }}" \
+          --set-default
+ 
+        echo "✅ 认证成功"
+ 
+    # 步骤5：执行实际部署
+    - name: 🚀 执行部署
+      id: deploy-action
+      run: |
+        echo "开始实际部署..."
+ 
+        # 获取测试配置
+        TEST_LEVEL="${{ needs.prepare-deployment.outputs.test-level }}"
+        TEST_CLASSES="${{ needs.prepare-deployment.outputs.test-classes }}"
+ 
+        # 构建部署命令
+        DEPLOY_CMD="sf project deploy quick"
+        DEPLOY_CMD="$DEPLOY_CMD --manifest ${{ needs.prepare-deployment.outputs.package-file-path }}"
+        DEPLOY_CMD="$DEPLOY_CMD --target-org ${{ env.ORG_ALIAS }}"
+        DEPLOY_CMD="$DEPLOY_CMD --test-level $TEST_LEVEL"
+        DEPLOY_CMD="$DEPLOY_CMD --wait 30"
+        DEPLOY_CMD="$DEPLOY_CMD --verbose"
+ 
+        # 如果是指定测试类，添加到命令
+        if [ "$TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$TEST_CLASSES" ]; then
+          COMMA_SEPARATED_CLASSES=$(echo "$TEST_CLASSES" | tr ' ' ',')
+          DEPLOY_CMD="$DEPLOY_CMD --tests $COMMA_SEPARATED_CLASSES"
+        fi
+ 
+        echo "执行命令: $DEPLOY_CMD"
+ 
+        # 记录开始时间
+        START_TIME=$(date +%s)
+ 
+        # 执行部署
+        echo "⏳ 部署进行中..."
+        if eval $DEPLOY_CMD; then
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+ 
+          echo "✅ 部署成功 (耗时: ${DURATION}秒)"
+ 
+          # 获取部署结果
+          echo "📋 部署结果:"
+          sf project deploy report \
+            --target-org "${{ env.ORG_ALIAS }}" \
+            --json | jq -r '.result | "组件: \(.numberComponentsDeployed)/\(.numberComponentsTotal)"'
+ 
+          echo "deployment-status=success" >> $GITHUB_OUTPUT
+          echo "deployment-duration=${DURATION}" >> $GITHUB_OUTPUT
+        else
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+ 
+          echo "❌ 部署失败 (耗时: ${DURATION}秒)"
+          echo "deployment-status=failed" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+ 
+    # 步骤6：清理
+    - name: 🧹 清理
+      if: always()
+      run: |
+        echo "清理..."
+        rm -rf .jwt 2>/dev/null || true
+        sf org logout --target-org "${{ env.ORG_ALIAS }}" --no-prompt 2>/dev/null || true
+
