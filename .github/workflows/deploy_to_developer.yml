@@ -447,20 +447,4 @@ jobs:
         rm -rf .jwt 2>/dev/null || true
         sf org logout --target-org "${{ env.ORG_ALIAS }}" --no-prompt 2>/dev/null || true
 
-  # 第四阶段：报告生成
-  generate-report:
-    name: 📊 生成报告
-    runs-on: ubuntu-latest
-    needs: [prepare-deployment, configure-and-validate, execute-deployment]
-    if: always()
- 
-    steps:
- 
-    - name: 📄 生成报告
-      run: |
-        echo "生成部署报告..."
- 
-        REPORT_FILE="dev02-deployment-report.md"
- 
-        cat > $REPORT_FILE << EOF
 
