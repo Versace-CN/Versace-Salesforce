@@ -5,7 +5,7 @@ name: Salesforce Dev02 Environment Deployment
 on:
   push:
     branches:
-      - developer
+      - test2
     # 只监控相关的文件变化
     paths:
       - 'manifest/package.xml'
