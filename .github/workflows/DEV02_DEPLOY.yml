@@ -207,6 +207,7 @@ jobs:
  
     # 步骤5：执行部署验证（dry-run）
     - name: 🧪 验证部署
+      id: validate-deploy
       run: |
         echo "执行部署验证（dry-run）..."
  
@@ -265,9 +266,13 @@ jobs:
             fi
 
             echo "✅ 获取到部署 ID: $DEPLOY_ID"
+            # 保存到步骤输出
+            echo "deploy-id=$DEPLOY_ID" >> $GITHUB_OUTPUT
 
     # 步骤6：实际部署
     - name: 🚀 执行实际部署
+      env:
+        DEPLOY_ID: ${{ steps.validate-deploy.outputs.deploy-id }}  # 关键：通过 env 传入
       run: |
         echo "开始实际部署..."
         if [ -z "$DEPLOY_ID" ]; then
@@ -280,7 +285,7 @@ jobs:
           echo "目标环境: DEV02"
     
         # 构建快速部署命令
-        QUICK_DEPLOY_CMD="sf project deploy quick -i $DEPLOY_ID -o ${{ vars.SF_DEV02_USERNAME }} --json"
+        QUICK_DEPLOY_CMD="sf project deploy quick -i $DEPLOY_ID -o ${{ vars.SF_DEV02_USERNAME }}"
 
         if eval $QUICK_DEPLOY_CMD; then
           echo "✅ 快速部署成功完成"
