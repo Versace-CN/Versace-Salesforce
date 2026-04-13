@@ -174,7 +174,11 @@ jobs:
  
     # 条件：package.xml有效
     if: ${{ needs.prepare-deployment.outputs.has-valid-package == 'true' }}
- 
+
+ # 输出变量
+    outputs:
+      DEPLOY_ID: ${{ steps.validate-deploy.outputs.deploy-id }}
+      
     steps:
  
     # 步骤1：检出代码
@@ -269,10 +273,47 @@ jobs:
             # 保存到步骤输出
             echo "deploy-id=$DEPLOY_ID" >> $GITHUB_OUTPUT
 
-    # 步骤6：实际部署
+
+  # 第三阶段：实际部署
+  execute-deployment:
+    name: 3. 实际部署
+    runs-on: ubuntu-latest
+    needs: configure-and-validate
+
+    steps:
+ 
+    # 步骤1：检出代码
+    - name: 🔍 检出代码
+      uses: actions/checkout@v4
+ 
+    # 步骤2：设置Node.js环境
+    - name: ⚙️ 设置Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'latest'
+ 
+    # 步骤3：安装Salesforce CLI
+    - name: 📦 安装Salesforce CLI
+      run: |
+        echo "安装Salesforce CLI..."
+        npm install -g @salesforce/cli
+        sf --version
+        sf plugins install @salesforce/plugin-packaging @salesforce/plugin-source --force
+ 
+    # 步骤4：登录到Salesforce DEV02
+    - name: 🔐 登录到Salesforce DEV02
+      run: |
+        # 登录到Salesforce
+        echo "登录到dev02环境..."
+        echo '${{ secrets.SFDX_DEV02_ORG_AUTH }}' > ./SFDX_ORG_AUTH.json
+        sf org login sfdx-url --sfdx-url-file ./SFDX_ORG_AUTH.json --set-default
+ 
+        echo "✅ 认证成功"
+
+   # 步骤5：实际部署
     - name: 🚀 执行实际部署
       env:
-        DEPLOY_ID: ${{ steps.validate-deploy.outputs.deploy-id }}  # 关键：通过 env 传入
+        DEPLOY_ID: ${{ needs.configure-and-validate.outputs.DEPLOY_ID }}  # 关键：传入验证阶段的DEPLOY_ID
       run: |
         echo "开始实际部署..."
         if [ -z "$DEPLOY_ID" ]; then
@@ -294,11 +335,3 @@ jobs:
           echo "❌ 快速部署失败"
           exit 1
           fi
- 
-    # 步骤7：清理临时文件
-    - name: 🧹 清理临时文件
-      if: always()
-      run: |
-        echo "清理临时文件..."
-        rm -rf .jwt 2>/dev/null || true
-        rm -f .sfdx/*.json 2>/dev/null || true
