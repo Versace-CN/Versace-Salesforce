@@ -326,11 +326,13 @@ jobs:
           echo "目标环境: DEV02"
     
         # 构建快速部署命令
-        QUICK_DEPLOY_CMD="sf project deploy quick -i $DEPLOY_ID -o ${{ vars.DEV02_USER_NAME }}"
+        # QUICK_DEPLOY_CMD="sf project deploy quick -i $DEPLOY_ID -o ${{ vars.DEV02_USER_NAME }}"
+
+        QUICK_DEPLOY_CMD="sf project deploy start --concise -w 60 --manifes ${{ needs.prepare-deployment.outputs.package-file-path }} --test-level $TEST_LEVEL -o ${{ vars.DEV02_USER_NAME }}" 
 
         if eval $QUICK_DEPLOY_CMD; then
           echo "✅ 快速部署成功完成"
-          cat "$DEPLOY_OUTPUT" | jq '.' 2>/dev/null || cat "$DEPLOY_OUTPUT"
+          echo "✅ 成功部署到目标salesforce环境"
         else
           echo "❌ 快速部署失败"
           exit 1
