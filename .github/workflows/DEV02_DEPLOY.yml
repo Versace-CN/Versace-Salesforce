@@ -2,7 +2,7 @@
 
 name: Salesforce Dev02 Environment Deployment
 
-# 触发器配置：当代码推送到developer分支时触发
+# 触发器配置：当代码推送到main分支时触发
 on:
   push:
     branches:
@@ -230,8 +230,8 @@ jobs:
  
         # 如果是指定测试类，添加到命令
         if [ "$TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$TEST_CLASSES" ]; then
-          VALIDATE_CMD="$VALIDATE_CMD --tests $COMMA_SEPARATED_CLASSES"
-          echo "转换后测试类: $COMMA_SEPARATED_CLASSES"
+          VALIDATE_CMD="$VALIDATE_CMD --tests $TEST_CLASSES"
+          echo "转换后测试类: $TEST_CLASSES"
         fi
  
         echo "执行命令: $VALIDATE_CMD"
@@ -242,8 +242,16 @@ jobs:
         # 执行验证
         RESULT=$($VALIDATE_CMD)
         echo "$RESULT"
+
+        DEPLOY_STATUS=$(echo "$RESULT" | jq -r '.result.status')
+
+        if [ "$DEPLOY_STATUS" = "Failed" ]; then
+        echo "❌ 验证失败"
+        exit 1
+        fi
+
         STATUS=$(echo "$RESULT" | jq -r '.status')
-        if [ "$STATUS" != "0"]; then
+        if [ "$STATUS" != "0" ]; then
           # 验证失败
           END_TIME=$(date +%s)
           DURATION=$((END_TIME - START_TIME))
@@ -326,9 +334,9 @@ jobs:
           echo "目标环境: DEV02"
     
         # 构建快速部署命令
-        # QUICK_DEPLOY_CMD="sf project deploy quick -i $DEPLOY_ID -o ${{ vars.DEV02_USER_NAME }}"
+          QUICK_DEPLOY_CMD="sf project deploy quick -i $DEPLOY_ID -o ${{ vars.DEV02_USER_NAME }}"
 
-        QUICK_DEPLOY_CMD="sf project deploy start --manifest "manifest/package.xml" --test-level NoTestRun -o ${{ vars.DEV02_USER_NAME }} --verbose --ignore-warnings" 
+        #QUICK_DEPLOY_CMD="sf project deploy start --manifest "manifest/package.xml" --test-level NoTestRun -o ${{ vars.DEV02_USER_NAME }} --verbose --ignore-warnings" 
 
         if eval $QUICK_DEPLOY_CMD; then
           echo "✅ 快速部署成功完成"
