@@ -31,7 +31,6 @@ public without sharing class PwcErrorLogEventHandler {
         Insert_Error_Log__e errorEvent = PwcErrorLogEventHandler.createEvent(informationWrapper);
         EventBus.publish(errorEvent);
 
-        System.debug('--------------------------o oo o o ');
         return informationWrapper.e;
     }
 
