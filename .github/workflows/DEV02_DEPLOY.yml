@@ -341,7 +341,7 @@ jobs:
           echo "目标环境: DEV02"
 
         # 使用deploy start实际部署
-        QUICK_DEPLOY_CMD = "sf project deploy start --manifest manifest/package.xml --test-level $TEST_LEVEL"
+        QUICK_DEPLOY_CMD="sf project deploy start --manifest manifest/package.xml --test-level $TEST_LEVEL"
 
         # 如果是指定测试类，追加 --tests 参数
         if [ "$TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$TEST_CLASSES" ]; then
