@@ -278,8 +278,12 @@ jobs:
             fi
 
             echo "✅ 获取到部署 ID: $DEPLOY_ID"
-            # 保存到步骤输出
+            # 保存deploy ID到步骤输出,供实际部署quick deploy使用
             echo "deploy-id=$DEPLOY_ID" >> $GITHUB_OUTPUT
+            
+            # 保存test level和test class到步骤输出，供实际部署使用
+            echo "test-level=$TEST_LEVEL" >> $GITHUB_OUTPUT
+            echo "test-class=$TEST_CLASSES" >> $GITHUB_OUTPUT
 
 
   # 第三阶段：实际部署
@@ -321,7 +325,10 @@ jobs:
    # 步骤5：实际部署
     - name: 🚀 执行实际部署
       env:
-        DEPLOY_ID: ${{ needs.configure-and-validate.outputs.DEPLOY_ID }}  # 关键：传入验证部署阶段的DEPLOY_ID
+        # 关键：传入验证部署阶段的DEPLOY_ID
+        DEPLOY_ID: ${{ needs.configure-and-validate.outputs.DEPLOY_ID }}  
+        TEST_LEVEL: ${{ needs.prepare-deployment.outputs.test-level }}
+        TEST_CLASSES: ${{ needs.prepare-deployment.outputs.test-classes }}
       run: |
         echo "开始实际部署..."
         if [ -z "$DEPLOY_ID" ]; then
@@ -333,15 +340,21 @@ jobs:
           echo "使用验证阶段的部署 ID 进行快速部署: $DEPLOY_ID"
           echo "目标环境: DEV02"
     
-        # 构建快速部署命令
+        # 构建快速部署命令  deploy quick的方式有点问题，暂时注释掉
           #QUICK_DEPLOY_CMD="sf project deploy quick -i $DEPLOY_ID -o ${{ vars.DEV02_USER_NAME }}"
 
-        QUICK_DEPLOY_CMD="sf project deploy start --manifest "manifest/package.xml" --test-level NoTestRun -o ${{ vars.DEV02_USER_NAME }} --verbose --ignore-warnings" 
-
+        #QUICK_DEPLOY_CMD="sf project deploy start --manifest "manifest/package.xml" --test-level NoTestRun -o ${{ vars.DEV02_USER_NAME }} --verbose --ignore-warnings" 
+        QUICK_DEPLOY_CMD = "sf project deploy start --manifest manifest/package.xml --test-level $TEST_LEVEL"
+        # 如果是指定测试类，追加 --tests 参数
+        if [ "$TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$TEST_CLASSES" ]; then
+        QUICK_DEPLOY_CMD="$QUICK_DEPLOY_CMD --tests $TEST_CLASSES"
+        fi
+        QUICK_DEPLOY_CMD="$QUICK_DEPLOY_CMD -o ${{ vars.DEV02_USER_NAME }} --verbose --ignore-warnings"
+        
         if eval $QUICK_DEPLOY_CMD; then
-          echo "✅ 快速部署成功完成"
+          echo "✅ 实际部署成功完成"
           echo "✅ 成功部署到目标salesforce环境"
         else
-          echo "❌ 快速部署失败"
+          echo "❌ 部署失败"
           exit 1
           fi
