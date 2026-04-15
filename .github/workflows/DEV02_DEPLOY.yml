@@ -339,12 +339,10 @@ jobs:
   
           echo "使用验证阶段的部署 ID 进行快速部署: $DEPLOY_ID"
           echo "目标环境: DEV02"
-    
-        # 构建快速部署命令  deploy quick的方式有点问题,暂时注释掉
-          # QUICK_DEPLOY_CMD="sf project deploy quick -i $DEPLOY_ID -o ${{ vars.DEV02_USER_NAME }}"
 
-        # QUICK_DEPLOY_CMD="sf project deploy start --manifest "manifest/package.xml" --test-level NoTestRun -o ${{ vars.DEV02_USER_NAME }} --verbose --ignore-warnings" 
+        # 使用deploy start实际部署
         QUICK_DEPLOY_CMD = "sf project deploy start --manifest manifest/package.xml --test-level $TEST_LEVEL"
+
         # 如果是指定测试类，追加 --tests 参数
         if [ "$TEST_LEVEL" = "RunSpecifiedTests" ] && [ -n "$TEST_CLASSES" ]; then
         QUICK_DEPLOY_CMD="$QUICK_DEPLOY_CMD --tests $TEST_CLASSES"
