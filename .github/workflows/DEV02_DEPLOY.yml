@@ -281,9 +281,9 @@ jobs:
             # 保存deploy ID到步骤输出,供实际部署quick deploy使用
             echo "deploy-id=$DEPLOY_ID" >> $GITHUB_OUTPUT
             
-            # 保存test level和test class到步骤输出，供实际部署使用
+            # 保存test level和test class到步骤输出,供实际部署使用
             echo "test-level=$TEST_LEVEL" >> $GITHUB_OUTPUT
-            echo "test-class=$TEST_CLASSES" >> $GITHUB_OUTPUT
+            echo "test-classes=$TEST_CLASSES" >> $GITHUB_OUTPUT
 
 
   # 第三阶段：实际部署
@@ -327,8 +327,8 @@ jobs:
       env:
         # 关键：传入验证部署阶段的DEPLOY_ID
         DEPLOY_ID: ${{ needs.configure-and-validate.outputs.DEPLOY_ID }}  
-        TEST_LEVEL: ${{ needs.prepare-deployment.outputs.test-level }}
-        TEST_CLASSES: ${{ needs.prepare-deployment.outputs.test-classes }}
+        TEST_LEVEL: ${{ needs.configure-and-validate.outputs.test-level }}
+        TEST_CLASSES: ${{ needs.configure-and-validate.outputs.test-classes }}
       run: |
         echo "开始实际部署..."
         if [ -z "$DEPLOY_ID" ]; then
